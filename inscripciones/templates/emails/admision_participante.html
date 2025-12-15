@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<html>
 <head>
     <title>Admitido como participante</title>
     <link rel="stylesheet" href="{% static 'css/participante.css' %}">
@@ -13,14 +12,13 @@
         <p>Hola <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>,</p>
         <p class="success">¡Felicidades! Has sido admitido como participante en el evento <strong>{{ evento.nombre }}</strong>.</p>
         <p>Pronto recibirás más información.</p>
+        <p>Tu clave de acceso al sistema es: <strong>{{ clave_acceso }}</strong></p>
+        <p>Adjunto encontrarás tu código QR de inscripción para presentar en el evento.</p>
         <div style="text-align:center;margin-top:30px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Admitido" width="80"/>
+            <img src="{{ qr_image_url }}" alt="Código QR de inscripción" width="120"/>
         </div>
+        <p>¡Te esperamos!</p>
     </div>
 </body>
 </html>
-    <p>Tu clave de acceso al sistema es: <strong>{{ clave_acceso }}</strong></p>
-    <p>Adjunto encontrarás tu código QR de inscripción para presentar en el evento.</p>
-    <p>¡Te esperamos!</p>
-</body>
-</html>
+
