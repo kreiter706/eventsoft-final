@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<html>
 <head>
     <title>Admitido como evaluador</title>
     <link rel="stylesheet" href="{% static 'css/evaluador.css' %}">
@@ -13,13 +12,19 @@
         <p>Hola <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>,</p>
         <p class="success">¡Felicidades! Has sido admitido como evaluador en el evento <strong>{{ evento.nombre }}</strong>.</p>
         <p>Pronto recibirás más información.</p>
+
+        <!-- Clave de acceso -->
+        {% if clave_acceso %}
+            <p>Tu clave de acceso al sistema es: <strong>{{ clave_acceso }}</strong></p>
+        {% else %}
+            <p>No se ha generado ninguna clave de acceso.</p>
+        {% endif %}
+
         <div style="text-align:center;margin-top:30px;">
             <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Admitido" width="80"/>
         </div>
     </div>
-</body>
-</html>
-    <p>Tu clave de acceso al sistema es: <strong>{{ clave_acceso }}</strong></p>
     <p>¡Gracias por tu disposición y compromiso!</p>
 </body>
 </html>
+
