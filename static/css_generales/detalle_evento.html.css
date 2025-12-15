@@ -1,0 +1,280 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* ===== Barra superior premium ===== */
+.top-bar {
+    background: linear-gradient(90deg, #2C7A4C, #42C266);
+    color: white;
+    padding: 12px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.top-bar-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mini-logo {
+    width: 32px;
+    height: auto;
+    border-radius: 6px;
+    background: white;
+    padding: 3px;
+}
+.site-title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+.top-menu a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.login-link {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+}
+.login-link:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+/* ===== Contenedor principal ===== */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* ===== Tarjeta del evento ===== */
+.event-detail-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid rgba(66,194,70,0.15);
+}
+
+/* Layout en dos columnas */
+.event-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+/* Imagen */
+.event-img-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.event-img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.event-img-wrapper:hover img {
+    transform: scale(1.03);
+}
+
+/* Info del evento */
+.event-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2C7A4C;
+    margin-bottom: 15px;
+}
+.event-info p {
+    margin: 8px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.event-info i {
+    color: #2C7A4C;
+    margin-right: 8px;
+}
+
+/* Botones */
+.event-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+.primary-btn {
+    background-color: #2C7A4C;
+    color: white;
+}
+.primary-btn:hover {
+    background-color: #1E5E37;
+}
+.secondary-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+.secondary-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Logo marca de agua */
+.logo-watermark {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.15;
+    width: 60px;
+    height: auto;
+}
+.logo-watermark img {
+    width: 100%;
+    height: auto;
+}
+
+/* ====== Estilos globales ====== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ====== Barra de navegación ====== */
+.navbar {
+    background-color: #2e7d32; /* Verde más profundo y elegante */
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #c8e6c9;
+}
+
+/* ====== Contenedor principal ====== */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+}
+
+/* ====== Contenedor de evento ====== */
+.event-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 6px solid #43a047; /* Toque verde lateral */
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* ====== Títulos de eventos ====== */
+.event-card h2 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+/* ====== Botones ====== */
+.btn {
+    background-color: #43a047;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn:hover {
+    background-color: #388e3c;
+    transform: scale(1.03);
+}
+
+.btn-danger {
+    background-color: #e53935;
+}
+
+.btn-danger:hover {
+    background-color: #c62828;
+}
+
+/* ====== Barra de búsqueda ====== */
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.search-bar button {
+    background-color: #43a047;
+    color: white;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.search-bar button:hover {
+    background-color: #388e3c;
+}

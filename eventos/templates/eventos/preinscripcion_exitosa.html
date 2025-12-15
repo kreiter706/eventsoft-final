@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preinscripción Exitosa</title>
+    <link rel="stylesheet" href="{% static 'css_generales/registro_asistente.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Próximos</a>
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-grid">
+            <div class="form-card">
+                <h2><i class="fa-solid fa-circle-check"></i> ¡Preinscripción exitosa!</h2>
+                <p><strong>Evento:</strong> <span>{{ evento.nombre }}</span></p>
+                {% if clave_generada %}
+                <div class="access-key">
+                    <p><i class="fa-solid fa-key"></i> <strong>Tu clave de acceso es:</strong></p>
+                    <span class="key-box">{{ clave_generada }}</span>
+                    <p class="note">Guárdala en un lugar seguro.</p>
+                </div>
+                {% endif %}
+                <a href="{% url 'eventos_proximos' %}" class="btn primary-btn">
+                    <i class="fa-solid fa-arrow-left"></i> Volver a eventos
+                </a>
+            </div>
+            <div class="image-side">
+                <img src="{% static 'fondos/imagen5.png' %}" alt="Imagen ilustrativa">
+            </div>
+        </div>
+    </div>
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+</body>
+</html>
+            </a>
+        </div>
+    </div>
+
+    <!-- Marca de agua -->
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Opciones de Participación</title>
+    <link rel="stylesheet" href="{% static 'css_generales/preinscripcion_participante.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Próximos</a>
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-grid">
+            <div class="form-card">
+                <h2><i class="fa-solid fa-users"></i> ¿Cómo deseas participar?</h2>
+                <form method="get">
+                    <button type="submit" formaction="{{ url_individual }}" class="btn primary-btn" style="margin-bottom: 15px;">
+                        <i class="fa-solid fa-user"></i> Participar solo
+                    </button>
+                    <button type="submit" formaction="{{ url_grupal }}" class="btn secondary-btn">
+                        <i class="fa-solid fa-users"></i> Participar en grupo / asociar a proyecto
+                    </button>
+                </form>
+            </div>
+            <div class="image-side">
+                <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen ilustrativa">
+            </div>
+        </div>
+    </div>
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+</body>
+</html>

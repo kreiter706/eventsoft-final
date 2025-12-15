@@ -1,0 +1,135 @@
+/* ===== Base ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ===== Barra superior ===== */
+.top-bar {
+  background: linear-gradient(90deg, #272c29, #656565);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title { display:flex; align-items:center; gap:10px; }
+.mini-logo { width:32px; background:white; border-radius:6px; padding:3px; }
+.site-title { margin:0; font-size:1.4rem; font-weight:800; }
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover { background-color: rgba(255,255,255,0.3); }
+
+/* ===== Contenedor ===== */
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 24px;
+}
+.container h2 {
+  color: #272c29;
+  margin-bottom: 18px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Tabla (envoltura para scroll) ===== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+}
+.stats-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.stats-table thead {
+  background-color: #272c29;
+  color: white;
+}
+.stats-table th, .stats-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #eef6ef;
+}
+.stats-table tbody tr:nth-child(even) {
+  background-color: #f4f9f6;
+}
+.evt-name { font-weight: 600; color: #1E5E37; }
+
+/* ===== Badges ===== */
+.badge {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+}
+.badge.success { background-color: #cb2d9c; color: white; }
+.badge.danger  { background-color: #d9534f; color: white; }
+
+/* ===== Progreso ===== */
+.progress {
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg,#eef7ee,#f7faf7);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(.2,.9,.2,1);
+}
+.progress-bar.admit { background: linear-gradient(90deg,#7a2c57,#cb2d9c); }
+.progress-bar.reject { background: linear-gradient(90deg,#d9534f,#c43b32); }
+
+/* ===== Meta de progreso (conteo + % ) ===== */
+.progress-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+.progress-meta .percent {
+  color: #555;
+  font-weight: 600;
+}
+
+/* ===== Mensajes vacíos ===== */
+.empty-message {
+  text-align: center;
+  padding: 15px;
+  color: #777;
+  font-style: italic;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 700px) {
+  .progress-meta { gap: 6px; font-size: 0.85rem; }
+  .stats-table th, .stats-table td { padding: 10px; }
+}

@@ -1,0 +1,41 @@
+/* Estilo general para EVALUADOR (color naranja) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff8f2;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+.header, h1, h2, h3 {
+    color: #e67c1c;
+}
+.btn, a.button, input[type="submit"] {
+    background: #e67c1c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.btn:hover, a.button:hover, input[type="submit"]:hover {
+    background: #b85d0d;
+}
+.card, .box, .container {
+    background: #fff;
+    border: 1px solid #ffe2c7;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ffe2c7;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #ffd6b0;
+}
+.success {
+    color: #e67c1c;
+    font-weight: bold;
+}

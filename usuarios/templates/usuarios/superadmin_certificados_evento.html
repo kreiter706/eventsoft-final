@@ -1,0 +1,81 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Enviar Certificados</title>
+  <link rel="stylesheet" href="{% static 'css/certificados_envio_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Enviar certificados de premiación y puntuación</h2>
+      <p>Selecciona los participantes ganadores y el puesto que obtuvieron para enviarles el certificado por correo.</p>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>Participante</th>
+            <th>Email</th>
+            <th>Puesto</th>
+            <th>Seleccionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for participante in participantes %}
+          <tr>
+            <td>{{ participante.usuario.first_name }} {{ participante.usuario.last_name }}</td>
+            <td>{{ participante.usuario.email }}</td>
+            <td>
+              <input type="number" name="puesto_{{ participante.id }}" min="1" max="10" class="input-puesto">
+            </td>
+            <td>
+              <input type="checkbox" name="seleccionado_{{ participante.id }}">
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="empty-message">No hay participantes disponibles.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button type="submit" class="btn primary-btn">
+        <i class="fa-solid fa-paper-plane"></i> Enviar certificados
+      </button>
+    </form>
+
+    {% if enviados %}
+      <div class="success-message">
+        <i class="fa-solid fa-circle-check"></i> Certificados enviados correctamente.
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
+{% endblock %}

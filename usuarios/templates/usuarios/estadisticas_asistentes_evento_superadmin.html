@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estadísticas de Inscripciones</title>
+  <link rel="stylesheet" href="{% static 'css/estadisticas_inscripciones_admin.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2><i class="fa-solid fa-chart-column"></i> Estadísticas de inscripciones de asistentes por evento</h2>
+
+    <div class="table-wrap">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Evento</th>
+            <th>Total asistentes</th>
+            <th>Admitidos</th>
+            <th>Rechazados</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in estadisticas %}
+          <tr>
+            <td class="evt-name">{{ item.evento.nombre }}</td>
+            <td class="center">{{ item.total }}</td>
+
+            <!-- Celda admitidos: contiene data-* con el conteo -->
+            <td class="progress-cell" data-total="{{ item.total }}" data-count="{{ item.admitidos }}">
+              <div class="progress">
+                <div class="progress-bar admit" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+              </div>
+              <div class="progress-meta">
+                <span class="badge success count-badge">{{ item.admitidos }}</span>
+                <span class="percent">0%</span>
+              </div>
+            </td>
+
+            <!-- Celda rechazados -->
+            <td class="progress-cell" data-total="{{ item.total }}" data-count="{{ item.rechazados }}">
+              <div class="progress">
+                <div class="progress-bar reject" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+              </div>
+              <div class="progress-meta">
+                <span class="badge danger count-badge">{{ item.rechazados }}</span>
+                <span class="percent">0%</span>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="empty-message">No hay datos de asistentes.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Script para calcular y animar las barras (colócalo al final para asegurar que el DOM esté listo) -->
+  <script>
+    (function () {
+      function updateProgressCells() {
+        const cells = document.querySelectorAll('.progress-cell');
+        cells.forEach(cell => {
+          const total = parseInt(cell.dataset.total, 10) || 0;
+          const count = parseInt(cell.dataset.count, 10) || 0;
+          const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+
+          const bar = cell.querySelector('.progress-bar');
+          const percentEl = cell.querySelector('.percent');
+          const badge = cell.querySelector('.count-badge');
+
+          // animar ancho y actualizar texto
+          if (bar) {
+            // forzar reflow para reiniciar la animación (si se necesita)
+            bar.style.width = '0%';
+            setTimeout(() => {
+              bar.style.width = percent + '%';
+              bar.setAttribute('aria-valuenow', percent);
+            }, 50);
+          }
+          if (percentEl) percentEl.textContent = percent + '%';
+          if (badge) badge.textContent = count;
+        });
+      }
+
+      // Ejecutar al cargar y al resize (opcional)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateProgressCells);
+      } else {
+        updateProgressCells();
+      }
+      window.addEventListener('resize', updateProgressCells);
+    })();
+  </script>
+</body>
+</html>

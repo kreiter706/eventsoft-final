@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar evento para envío de correos</title>
+    <link rel="stylesheet" href="{% static 'css/seleccionar_evento_envio_correos.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Selecciona el evento para enviar correos</h2>
+        </div>
+
+        <table class="events-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Lugar</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evento in eventos %}
+                <tr>
+                    <td>{{ evento.nombre }}</td>
+                    <td>{{ evento.fecha_inicio }}</td>
+                    <td>{{ evento.fecha_fin }}</td>
+                    <td>{{ evento.lugar }}</td>
+                    <td>
+                        <a href="{% url 'seleccionar_rol_envio_correo_superadmin' evento.id %}" class="btn primary-btn">
+                            <i class="fa-solid fa-envelope"></i> Seleccionar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-message">No hay eventos disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

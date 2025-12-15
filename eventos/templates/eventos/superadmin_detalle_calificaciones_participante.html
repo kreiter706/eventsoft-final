@@ -1,0 +1,72 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle de Calificaciones</title>
+  <link rel="stylesheet" href="{% static 'css/calificaciones_participantes_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'superadmin_tabla_posiciones' evento.id %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Detalle de calificaciones de {{ participante.usuario.first_name }} {{ participante.usuario.last_name }}</h2>
+      <p><strong>Evento:</strong> {{ evento.nombre }}</p>
+    </div>
+
+    {% for instrumento, items in agrupado.items %}
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <strong>Instrumento:</strong> {{ instrumento.nombre }}
+        </div>
+        <div class="card-body">
+          <table class="events-table">
+            <thead>
+              <tr>
+                <th>Ítem</th>
+                <th>Evaluador</th>
+                <th>Puntaje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item, califs in items.items %}
+                {% for calif in califs %}
+                <tr>
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ calif.evaluador.usuario.first_name }} {{ calif.evaluador.usuario.last_name }}</td>
+                  <td>{{ calif.puntaje }}</td>
+                </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% empty %}
+      <p class="empty-message">No hay calificaciones registradas para este participante.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
+{% endblock %}

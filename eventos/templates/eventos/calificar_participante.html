@@ -1,0 +1,91 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calificar Participante</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Calificar Participante</h2>
+            <p class="evento-sub">
+                Participante: <span>{{ participante.usuario.first_name }} {{ participante.usuario.last_name }}</span><br>
+                Email: <span>{{ participante.usuario.email }}</span><br>
+                Instrumento: <span>{{ instrumento.nombre }} ({{ instrumento.get_tipo_display }})</span>
+            </p>
+        </div>
+
+        <form method="post" class="styled-form">
+            {% csrf_token %}
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Ítem</th>
+                            <th>Puntaje</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item_id, form in forms_dict.items %}
+                        <tr>
+                            <td>{{ form.instance.item.nombre }}</td>
+                            <td>
+                                {{ form.puntaje }}
+                                {% if form.errors.puntaje %}
+                                    <ul class="errorlist">
+                                        {% for error in form.errors.puntaje %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ form.observaciones }}
+                                {% if form.errors.observaciones %}
+                                    <ul class="errorlist">
+                                        {% for error in form.errors.observaciones %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary-btn">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar calificación
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+{% endblock %}

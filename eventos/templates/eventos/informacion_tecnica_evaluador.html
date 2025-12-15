@@ -1,0 +1,18 @@
+{% load static %}
+<html>
+<head>
+    <title>Cargar información técnica</title>
+    <link rel="stylesheet" href="{% static 'css_generales/informacion_tecnica_evaluador.html.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cargar información técnica para el evento: {{ evento.nombre }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cargar información</button>
+        </form>
+        <a href="{% url 'detalle_evento_evaluador' evento.id %}">Volver al detalle del evento</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preinscripciones</title>
+  <link rel="stylesheet" href="{% static 'css/participantes_preinscritos_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'lista_eventos_cambiar_participante' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Participantes preinscritos y documentación</h2>
+    </div>
+
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Evento</th>
+          <th>Estado</th>
+          <th>Documentos</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in datos %}
+        <tr>
+          <td>{{ item.inscripcion.usuario.first_name }} {{ item.inscripcion.usuario.last_name }}</td>
+          <td>{{ item.inscripcion.usuario.email }}</td>
+          <td>{{ item.inscripcion.evento.nombre }}</td>
+          <td>
+            {% if item.inscripcion.estado == 'admitido' %}
+              <span class="badge active">Aprobado</span>
+            {% elif item.inscripcion.estado == 'rechazado' %}
+              <span class="badge inactive">Rechazado</span>
+            {% else %}
+              <span class="badge pending">Pendiente</span>
+            {% endif %}
+          </td>
+          <td>
+            {% for doc in item.documentos %}
+              <a href="{{ doc.archivo.url }}" target="_blank">{{ doc.descripcion }}</a><br>
+            {% empty %}
+              Sin documentos
+            {% endfor %}
+          </td>
+          <td>
+            {% if item.inscripcion.estado == 'pendiente' %}
+              <a class="btn primary-btn" href="{% url 'aprobar_inscripcion_participante' item.inscripcion.id 'admitido' %}">
+                <i class="fa-solid fa-check"></i> Aprobar
+              </a>
+              <a class="btn danger-btn" href="{% url 'aprobar_inscripcion_participante' item.inscripcion.id 'rechazado' %}">
+                <i class="fa-solid fa-xmark"></i> Rechazar
+              </a>
+            {% else %}
+              <em>No disponible</em>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="empty-message">No hay participantes preinscritos.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

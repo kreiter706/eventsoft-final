@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluaciones recibidas</title>
+  <link rel="stylesheet" href="{% static 'css_generales/mis_inscripciones.html.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-title">
+      <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+      <h1 class="site-title">
+        {% if user.rol == 'asistente' %} ASISTENTE {% elif user.rol == 'participante' %} PARTICIPANTE {% else %} EVALUADOR {% endif %}
+      </h1>
+    </div>
+    <nav class="top-menu">
+        <a href="{% url 'mis_inscripciones' %}" class="menu-link profile-btn"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+      <a href="{% url 'logout' %}" class="menu-link logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Contenido principal -->
+<div class="content-wrapper">
+  
+  <!-- Contenedor blanco -->
+  <div class="container smaller-container">
+    <h2 class="section-title">Evaluaciones recibidas en el evento: {{ evento.nombre }}</h2>
+
+    {% if proyectos %}
+      <div class="eventos-lista">
+        {% for proyecto in proyectos %}
+          <div class="evento-card">
+            <h3><i class="fa-solid fa-diagram-project"></i> Proyecto: {{ proyecto.titulo }}</h3>
+            <p>{{ proyecto.descripcion }}</p>
+            
+            <h4><i class="fa-solid fa-clipboard-check"></i> Evaluaciones</h4>
+            {% with evals=evaluaciones|dictsort:"fecha" %}
+              {% for evaluacion in evals %}
+                {% if evaluacion.proyecto_id == proyecto.id %}
+                  <div class="evaluacion" style="margin-bottom:10px; padding:10px; background:#f7f7f7; border-radius:6px;">
+                    <p><strong>Evaluador:</strong> {{ evaluacion.evaluador.usuario.email }}</p>
+                    <p><strong>Puntaje:</strong> {{ evaluacion.puntaje }}</p>
+                    <p><strong>Observaciones:</strong> {{ evaluacion.observaciones|default:'Sin observaciones' }}</p>
+                    <p><strong>Fecha:</strong> {{ evaluacion.fecha|date:'d/m/Y H:i' }}</p>
+                  </div>
+                {% endif %}
+              {% empty %}
+                <p class="empty-message">No hay evaluaciones para este proyecto.</p>
+              {% endfor %}
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-message" style="text-align:center; margin:40px 0;">
+        <i class="fa-solid fa-folder-open" style="font-size:2em; color:#bbb;"></i>
+        <h3 style="margin-top:10px; color:#555;">No tienes Calificaciones en este evento.</h3>
+      </div>
+    {% endif %}
+
+    <div style="margin-top:20px;">
+    </div>
+  </div>
+
+  <!-- Imagen decorativa -->
+  <div class="side-image">
+    <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen decorativa">
+  </div>
+
+</div>
+
+</body>
+</html>

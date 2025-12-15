@@ -1,0 +1,156 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+  min-height: 100vh;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.top-bar-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  height: auto;
+  border-radius: 6px;
+  background: white;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ====== Tarjeta de bienvenida ====== */
+.welcome-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid rgba(66,194,70,0.15);
+  margin-bottom: 30px;
+}
+.welcome-card h2 {
+  color: #2C7A4C;
+  margin-bottom: 8px;
+}
+
+/* ====== Grid de acciones ====== */
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+}
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: #2C7A4C;
+  font-weight: 600;
+  border: 1px solid rgba(66,194,70,0.15);
+  transition: all 0.3s ease;
+}
+.action-btn:hover {
+  background: #2C7A4C;
+  color: white;
+}
+
+/* ====== Encabezado de eventos ====== */
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}
+
+/* ====== Tabla de eventos ====== */
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.events-table th, .events-table td {
+  padding: 12px;
+  text-align: left;
+}
+.events-table thead {
+  background-color: #2C7A4C;
+  color: white;
+}
+.events-table tbody tr:nth-child(even) {
+  background-color: #f4f9f6;
+}
+.edit-link {
+  color: #2C7A4C;
+  text-decoration: none;
+  font-weight: 600;
+}
+.edit-link:hover {
+  text-decoration: underline;
+}
+

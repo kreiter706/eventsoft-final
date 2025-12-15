@@ -1,0 +1,75 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking del Evento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Ranking del Evento</h2>
+            <p class="evento-sub">Evento: <span>{{ evento.nombre }}</span></p>
+        </div>
+
+        {% if ranking %}
+            <form method="post" style="margin-bottom: 20px;">
+                {% csrf_token %}
+                <button type="submit" name="enviar_certificados" class="btn primary-btn" style="background: #28a745; color: white; font-weight: bold; font-size: 1.1rem; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-certificate"></i> Enviar certificación de su puntaje a los 3 primeros puestos
+                </button>
+            </form>
+            {% if enviados %}
+                <div style="background: #d4edda; color: #155724; padding: 12px 20px; border-radius: 6px; margin-bottom: 20px; font-weight: bold;">
+                    ¡Certificados enviados exitosamente a los 3 primeros puestos!
+                </div>
+            {% endif %}
+            <div class="table-container">
+                <table class="styled-table ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Posición</th>
+                            <th>Participante</th>
+                            <th>Puntaje Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ranking %}
+                            <tr>
+                                <td><strong>#{{ item.posicion }}</strong></td>
+                                <td>{{ item.participante.usuario.first_name }} {{ item.participante.usuario.last_name }}</td>
+                                <td>{{ item.puntaje_total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="empty-message">No hay ranking disponible para este evento.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar rol para envío de correos</title>
+    <link rel="stylesheet" href="{% static 'css/seleccionar_rol_envio_correos.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'seleccionar_evento_envio_correo' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="roles-header">
+            <h2>Selecciona el rol de los usuarios para el envío de correos</h2>
+            <p class="event-name"><strong>Evento:</strong> {{ evento.nombre }}</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <form id="form-masivo-todos" method="post" action="{% url 'enviar_correo_masivo_evento' evento.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="button" id="btn-masivo-todos" class="btn primary-btn" style="background: #d9534f; color: white; font-weight: bold; font-size: 1.1rem; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-envelope"></i> Enviar correo a TODOS los usuarios
+                </button>
+                <div id="modal-masivo" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+                    <div style="background:white; padding:30px; border-radius:10px; max-width:400px; margin:auto;">
+                        <h3 style="color:#d9534f;">¿Estás seguro?</h3>
+                        <p>Vas a enviar un correo a <b>todos los usuarios de este evento</b>. Esta acción no se puede deshacer.</p>
+                        <label>Asunto:<br><input type="text" name="asunto" required style="width:100%; margin-bottom:10px;"></label><br>
+                        <label>Mensaje:<br><textarea name="mensaje" required style="width:100%; height:80px;"></textarea></label><br>
+                        <div style="margin-top:15px; text-align:right;">
+                            <button type="button" id="cancelar-masivo" style="margin-right:10px;">Cancelar</button>
+                            <button type="submit" style="background:#d9534f; color:white; border:none; padding:8px 16px; border-radius:5px;">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    <script>
+    // Modal advertencia para correo masivo
+    document.getElementById('btn-masivo-todos').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('modal-masivo').style.display = 'flex';
+    });
+    document.getElementById('cancelar-masivo').addEventListener('click', function() {
+        document.getElementById('modal-masivo').style.display = 'none';
+    });
+    </script>
+        <div class="roles-list">
+            {% for rol_id, rol_nombre in roles %}
+            <a href="{% url 'seleccionar_usuarios_envio_correo' evento.id rol_id %}" class="role-card">
+                <i class="fa-solid fa-user-tag"></i>
+                <span>{{ rol_nombre }}</span>
+
+                {% if forloop.counter == 1 %}
+                <img src="{% static 'fondos/imagen4.jpg' %}" alt="Imagen {{ rol_nombre }}" class="role-image">
+                {% elif forloop.counter == 2 %}
+                <img src="{% static 'fondos/imagen5.png' %}" alt="Imagen {{ rol_nombre }}" class="role-image">
+                {% elif forloop.counter == 3 %}
+                <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen {{ rol_nombre }}" class="role-image">
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

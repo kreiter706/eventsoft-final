@@ -1,0 +1,11 @@
+<h2>Preinscribirme como evaluador a {{ evento.nombre }}</h2>
+{% if mensaje %}
+  <div class="alert alert-info">{{ mensaje }}</div>
+{% endif %}
+{% if form %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Preinscribirme</button>
+</form>
+{% endif %}

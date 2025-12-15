@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Inscripciones</title>
+  <link rel="stylesheet" href="{% static 'css_generales/mis_inscripciones.html.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-title">
+      <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+      <h1 class="site-title">
+        {% if user.rol == 'asistente' %} ASISTENTE {% elif user.rol == 'participante' %} PARTICIPANTE {% else %} EVALUADOR {% endif %}
+      </h1>
+    </div>
+    <nav class="top-menu">
+      <!-- Botón Mi perfil dinámico según el rol -->
+      {% if user.rol == 'asistente' %}
+        <a href="{% url 'perfil_asistente' %}" class="menu-link profile-btn"><i class="fa-solid fa-user"></i> Mi perfil</a>
+      {% elif user.rol == 'participante' %}
+        <a href="{% url 'perfil_participante' %}" class="menu-link profile-btn"><i class="fa-solid fa-user"></i> Mi perfil</a>
+      {% elif user.rol == 'evaluador' %}
+        <a href="{% url 'perfil_evaluador' %}" class="menu-link profile-btn"><i class="fa-solid fa-user"></i> Mi perfil</a>
+      {% endif %}
+      <a href="{% url 'logout' %}" class="menu-link logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Contenido principal -->
+<div class="content-wrapper">
+  
+  <!-- Contenedor principal más pequeño -->
+  <div class="container smaller-container">
+    <h2 class="section-title">Mis Inscripciones</h2>
+
+    {% if user.rol == 'asistente' %}
+      {% if inscripciones %}
+        <div class="eventos-lista">
+          {% for inscripcion in inscripciones %}
+          <div class="evento-card">
+            <h3>{{ inscripcion.evento.nombre }}</h3>
+
+            {% if inscripcion.estado == 'admitido' %}
+              <span class="badge active">¡Tu preinscripción fue aceptada!</span>
+              <div class="acciones-evento">
+                <a href="{% url 'descargar_comprobante_asistente' inscripcion.id %}" class="btn primary-btn"><i class="fa-solid fa-qrcode"></i> Comprobante</a>
+                <a href="{% url 'descargar_imagen' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-share-nodes"></i> Compartir</a>
+                <a href="{% url 'memorias_evento' %}" class="btn secondary-btn"><i class="fa-solid fa-book"></i> Memorias</a>
+              </div>
+            {% elif inscripcion.estado == 'pendiente' %}
+              <span class="badge warning">Pendiente de revisión</span>
+            {% elif inscripcion.estado == 'no_admitido' %}
+              <span class="badge inactive">No admitido</span>
+            {% endif %}
+
+            <details class="programacion-detalles">
+              <summary><i class="fa-solid fa-calendar-days"></i> Ver programación</summary>
+              {% with actividades=inscripcion.evento.programaciones.all %}
+                {% if actividades|length > 0 %}
+                  <ul class="lista-actividades">
+                    {% for actividad in actividades %}
+                      <li>
+                        <strong>{{ actividad.titulo_actividad }}</strong><br>
+                        {{ actividad.descripcion }}<br>
+                        {{ actividad.fecha }} de {{ actividad.hora_inicio }} a {{ actividad.hora_fin }}<br>
+                        Lugar: {{ actividad.lugar }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p class="empty-message">No hay programación disponible.</p>
+                {% endif %}
+              {% endwith %}
+            </details>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty-message">No tienes inscripciones actualmente.</p>
+      {% endif %}
+
+    {% elif user.rol == 'participante' %}
+      {% if inscripciones %}
+        <ul class="lista-inscripciones">
+          {% for inscripcion in inscripciones %}
+          <li class="bloque-inscripcion">
+            <h3>{{ inscripcion.evento.nombre }}</h3>
+
+            {% if inscripcion.estado == 'pendiente' %}
+              <span class="estado estado-pendiente">Su preinscripción está pendiente.</span>
+            {% elif inscripcion.estado == 'admitido' %}
+              <span class="estado estado-admitido">¡Tu preinscripción fue aceptada! ¡Bienvenido!</span>
+              {% if inscripcion.clave_acceso %}
+                <p class="clave-acceso"><strong>Tu clave de acceso:</strong> {{ inscripcion.clave_acceso }}</p>
+              {% endif %}
+            {% elif inscripcion.estado == 'no_admitido' %}
+              <span class="estado estado-rechazado">Tu preinscripción no fue aceptada, lo lamentamos.</span>
+            {% endif %}
+
+            <details class="programacion-detalles">
+              <summary>Ver programación del evento</summary>
+              {% with actividades=inscripcion.evento.programaciones.all %}
+                {% if actividades|length > 0 %}
+                  <ul class="lista-actividades">
+                    {% for actividad in actividades %}
+                      <li>
+                        <strong>{{ actividad.titulo_actividad }}</strong><br>
+                        {{ actividad.descripcion }}<br>
+                        {{ actividad.fecha }} de {{ actividad.hora_inicio }} a {{ actividad.hora_fin }}<br>
+                        Lugar: {{ actividad.lugar }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <span class="sin-programacion">No hay programación disponible.</span>
+                {% endif %}
+              {% endwith %}
+            </details>
+
+            {% if inscripcion.estado == 'admitido' %}
+            <div class="qr-box">
+              <strong>Tu QR de inscripción:</strong><br>
+              <img src="{% url 'descargar_comprobante' inscripcion.id %}" alt="QR de inscripción" class="qr-image">
+            </div>
+
+            <div class="acciones-grid">
+              <a href="{% url 'descargar_comprobante' inscripcion.id %}" class="btn primary-btn"><i class="fa-solid fa-qrcode"></i> Comprobante</a>
+              <a href="{% url 'descargar_certificado_participante' inscripcion.id %}" class="btn secondary-btn"><i class="fa-solid fa-file-pdf"></i> Certificado</a>
+              <a href="{% url 'ver_info_tecnica_participante' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-circle-info"></i> Info técnica</a>
+              <a href="{% url 'memorias_evento' %}" class="btn secondary-btn"><i class="fa-solid fa-book"></i> Memorias</a>
+              <a href="{% url 'descargar_imagen' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-share-nodes"></i> Compartir</a>
+              <a href="{% url 'descargar_programacion_evento' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-calendar-days"></i> Programación</a>
+              <a href="/media/manuales/Manual_Participante_EVENTSOFT.pdf" class="btn secondary-btn" style="display:inline-block; width:100%; box-sizing:border-box;" download><i class="fa-solid fa-book-open"></i> Manual de usuario</a>
+              <a href="{% url 'editar_preinscripcion_participante' inscripcion.evento.id user.id %}" class="btn secondary-btn"><i class="fa-solid fa-pen"></i> Editar mi perfil</a>
+              <a href="{% url 'instrumentos_evento' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-list-check"></i> Instrumentos</a>
+              <a href="{% url 'ver_evaluaciones_evento' inscripcion.evento.id %}" class="btn secondary-btn"><i class="fa-solid fa-star"></i> Evaluaciones</a>
+              <a href="{% url 'cancelar_preinscripcion' inscripcion.evento.id user.id %}" class="btn danger-btn"><i class="fa-solid fa-xmark"></i> Cancelar</a>
+            </div>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-message">No tienes inscripciones actualmente.</p>
+      {% endif %}
+
+    {% elif user.rol == 'evaluador' %}
+      {% if inscripciones %}
+        <ul class="lista-inscripciones">
+          {% for inscripcion in inscripciones %}
+            <li class="bloque-inscripcion">
+              <h3>{{ inscripcion.evento.nombre }}</h3>
+              {% if inscripcion.estado == 'admitido' %}
+                <a href="{% url 'memorias_evento' %}" class="btn">Memorias</a>
+                <a href="{% url 'descargar_imagen' inscripcion.evento.id %}" class="btn">Compartir</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-message">No tienes inscripciones actualmente.</p>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- Imagen decorativa -->
+  <div class="side-image">
+    <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen decorativa">
+  </div>
+
+</div>
+
+</body>
+</html>

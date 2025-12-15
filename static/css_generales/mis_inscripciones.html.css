@@ -1,0 +1,220 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.menu-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.menu-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenido ====== */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.section-title {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ====== Tarjetas de eventos ====== */
+.eventos-lista {
+  display: grid;
+  gap: 20px;
+}
+.evento-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.evento-card h3 {
+  margin-top: 0;
+}
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin: 5px 0;
+}
+.badge.active { background-color: #42C266; color: white; }
+.badge.warning { background-color: #FFC107; color: #333; }
+.badge.inactive { background-color: #c0392b; color: white; }
+
+/* ====== Botones ====== */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}
+.secondary-btn {
+  background-color: #ccc;
+  color: #333;
+}
+.secondary-btn:hover {
+  background-color: #aaa;
+}
+
+/* ====== Programación ====== */
+.programacion-detalles summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.lista-actividades {
+  padding-left: 20px;
+}
+.lista-actividades li {
+  margin-bottom: 8px;
+}
+
+/* ====== Mensajes vacíos ====== *
+
+/* Contenedor general */
+.content-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Reducimos ancho del contenedor blanco */
+.smaller-container {
+  flex: 0 0 65%; /* Ocupa 65% del ancho */
+}
+
+/* Imagen al lado del contenedor blanco */
+.side-image {
+  flex: 0 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.side-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Ocultar imagen en pantallas pequeñas */
+@media (max-width: 992px) {
+  .side-image {
+    display: none;
+  }
+  .smaller-container {
+    flex: 1 1 100%;
+  }
+}
+
+/* ====== Grid compacto de botones ====== */
+.acciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  margin-top: 15px;
+}
+.acciones-grid .btn {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Botones de estado */
+.warning-btn {
+  background-color: #FFC107;
+  color: #333;
+}
+.warning-btn:hover {
+  background-color: #e0a800;
+}
+.danger-btn {
+  background-color: #c0392b;
+  color: white;
+}
+.danger-btn:hover {
+  background-color: #962d22;
+}
+
+/* ====== QR más pequeño ====== */
+.qr-box {
+  text-align: center;
+  margin: 15px 0;
+}
+.qr-box strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.qr-box .qr-image {
+  max-width: 120px; /* más pequeño */
+  height: auto;
+  border: 2px solid #2C7A4C;
+  border-radius: 8px;
+  padding: 4px;
+  background-color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}

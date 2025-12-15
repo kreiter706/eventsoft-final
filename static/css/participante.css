@@ -1,0 +1,41 @@
+/* Estilo general para PARTICIPANTE (color verde) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f6fff6;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+.header, h1, h2, h3 {
+    color: #219150;
+}
+.btn, a.button, input[type="submit"] {
+    background: #219150;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.btn:hover, a.button:hover, input[type="submit"]:hover {
+    background: #176b37;
+}
+.card, .box, .container {
+    background: #fff;
+    border: 1px solid #d6f5e3;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #e0f2e9;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #b2e5c7;
+}
+.success {
+    color: #219150;
+    font-weight: bold;
+}

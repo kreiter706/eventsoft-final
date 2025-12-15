@@ -1,0 +1,183 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.menu-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.menu-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenido ====== */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.section-title {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ====== Perfil ====== */
+.perfil-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+.acciones-perfil {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* ====== Botones ====== */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}
+.secondary-btn {
+  background-color: #ccc;
+  color: #333;
+}
+.secondary-btn:hover {
+  background-color: #aaa;
+}
+
+/* ====== Tarjetas de eventos ====== */
+.evento-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
+}
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin: 5px 0;
+}
+.badge.active { background-color: #42C266; color: white; }
+.badge.warning { background-color: #FFC107; color: #333; }
+.badge.inactive { background-color: #c0392b; color: white; }
+
+/* ====== Programación ====== */
+.programacion-detalles summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.lista-actividades {
+  padding-left: 20px;
+}
+.lista-actividades li {
+  margin-bottom: 8px;
+}
+
+/* ====== Mensajes vacíos ====== */
+.empty-message {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* ====== Comprobante visual ====== */
+.comprobante-visual-card {
+  max-width: 720px;
+  margin: 36px auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 48px rgba(10, 10, 10, 0.12);
+  padding: 34px 30px;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(240,250,248,0.96) 100%);
+  overflow: hidden;
+}
+.comprobante-visual-card .fondo-deco {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.12; z-index: 0; border-radius:20px;
+}
+.comprobante-visual-card h4 {
+  margin: 0 0 14px 0; color: #00695c; font-size:1.4rem;
+}
+.comprobante-visual-card p { margin: 0 0 8px 0; color:#223; }
+.comprobante-visual-card .datos { line-height:1.7; }
+.comprobante-visual-card .qr-wrap { display:flex; justify-content:center; margin:18px 0; }
+.comprobante-visual-card .qr-wrap img { width:160px; height:160px; border-radius:10px; padding:8px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+.comprobante-visual-card .acciones { text-align:center; margin-top:8px; }
+.comprobante-visual-card .acciones .btn { padding:10px 18px; border-radius:10px; font-size:1rem; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .comprobante-visual-card { padding:22px 18px; }
+  .comprobante-visual-card .qr-wrap img { width:120px; height:120px; }
+}
+
+/* Print-friendly */
+@media print {
+  body { background: #fff; }
+  .top-bar, .menu-link, .acciones-perfil { display:none; }
+  .comprobante-visual-card { box-shadow:none; border-radius:0; }
+}

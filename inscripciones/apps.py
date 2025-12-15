@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+class InscripcionesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'inscripciones'
+
+    def ready(self):
+        import inscripciones.signals  # <-- Esto carga tus señales

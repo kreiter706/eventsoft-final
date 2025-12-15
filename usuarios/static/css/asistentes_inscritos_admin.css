@@ -1,0 +1,281 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 1200px; /* Antes era 1000px, ahora más ancho */
+  margin: auto;
+  padding: 40px 20px;
+}
+.events-header h2 {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  font-size: 1.5rem; /* Un poco más grande para destacar */
+}
+
+/* ====== Tabla ====== */
+.events-table {
+  width: 100%;
+  min-width: 900px; /* Evita que se encoja demasiado */
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.events-table th, .events-table td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+.events-table thead {
+  background-color: #2C7A4C;
+  color: white;
+}
+.events-table tbody tr:nth-child(even) {
+  background-color: #f4f9f6;
+}
+
+/* ====== Botones ====== */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}
+.danger-btn {
+  background-color: #d9534f;
+  color: white;
+}
+.danger-btn:hover {
+  background-color: #b52d2a;
+}
+
+/* ====== Badges ====== */
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.badge.active {
+  background-color: #2C7A4C;
+  color: white;
+}
+.badge.inactive {
+  background-color: #d9534f;
+  color: white;
+}
+.badge.pending {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+/* ====== Documentos ====== */
+.doc-link {
+  color: #2C7A4C;
+  text-decoration: none;
+  font-weight: 500;
+}
+.doc-link:hover {
+  text-decoration: underline;
+}
+.empty-message {
+  color: #777;
+  font-style: italic;
+}
+
+/* ====== Contenedor de botones de acción ====== */
+.accion-botones {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+  flex-wrap: wrap; /* Evita que se desborden */
+}
+
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.events-header h2 {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* ====== Título de evento ====== */
+.event-title {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #1E5E37;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ====== Tabla ====== */
+.events-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.events-table th, .events-table td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+.events-table thead {
+  background-color: #2C7A4C;
+  color: white;
+}
+.events-table tbody tr:nth-child(even) {
+  background-color: #f4f9f6;
+}
+
+/* ====== Badges ====== */
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.badge.active {
+  background-color: #2C7A4C;
+  color: white;
+}
+.badge.inactive {
+  background-color: #d9534f;
+  color: white;
+}
+.badge.pending {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+/* ====== Mensajes vacíos ====== */
+.empty-message {
+  text-align: center;
+  padding: 15px;
+  color: #777;
+  font-style: italic;
+}

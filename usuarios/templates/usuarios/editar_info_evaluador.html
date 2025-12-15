@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Información de Evaluador</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Editar Información y Documentación</h2>
+        </div>
+
+        <div class="card">
+            <form method="post" enctype="multipart/form-data" class="styled-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                {% if documento %}
+                    <p>
+                        <strong>Documento actual:</strong>
+                        <a href="{{ documento.archivo.url }}" target="_blank" class="btn primary-btn">
+                            <i class="fa-solid fa-file"></i> Ver documento
+                        </a>
+                    </p>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">
+                        <i class="fa-solid fa-save"></i> Guardar
+                    </button>
+                    <a href="{% url 'inicio_evaluador' %}" class="btn secondary-btn">
+                        <i class="fa-solid fa-xmark"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

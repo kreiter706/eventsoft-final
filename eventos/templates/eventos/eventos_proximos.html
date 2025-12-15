@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos próximos</title>
+    <link rel="stylesheet" href="{% static 'css_generales/eventos_proximos.html.css' %}">
+</head>
+<body>
+
+    <!-- Barra superior premium -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Barra de búsqueda -->
+        <form method="get" class="search-bar">
+            <input type="text" name="nombre" placeholder="Buscar evento, artista o lugar" value="{{ nombre }}">
+            <select name="categoria">
+                <option value="">Todas las categorías</option>
+                {% for cat in categorias %}
+                    <option value="{{ cat.id }}" {% if categoria_id|default:'' == cat.id|stringformat:'s' %}selected{% endif %}>{{ cat.nombre }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <h2 class="header">Eventos próximos</h2>
+
+        <div class="event-grid">
+            {% for evento in eventos %}
+                <div class="event-card">
+                    <div class="event-img-wrapper">
+                        {% if evento.imagen %}
+                            <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}">
+                        {% else %}
+                            <img src="{% static 'img/evento_default.jpg' %}" alt="Sin imagen">
+                        {% endif %}
+                        <div class="event-title">{{ evento.nombre }}</div>
+                    </div>
+                    <div class="event-body">
+                        <p>{{ evento.descripcion }}</p>
+                        <p><strong>Fecha:</strong> {{ evento.fecha_inicio }} - {{ evento.fecha_fin }}</p>
+                        <p><strong>Lugar:</strong> {{ evento.lugar }}</p>
+                        <div class="event-links">
+                            <a href="{% url 'detalle_evento' evento.id %}">Ver más detalles</a>
+                            <a href="{% url 'descargar_imagen' evento.id %}">Compartir Evento</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay eventos próximos.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Logo como marca de agua -->
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+
+</body>
+</html>

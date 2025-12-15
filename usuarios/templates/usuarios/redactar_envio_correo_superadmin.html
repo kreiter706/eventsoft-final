@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Redactar correo masivo</title>
+    <link rel="stylesheet" href="{% static 'css/redactar_correo_masivo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'seleccionar_usuarios_envio_correo_superadmin' evento.id rol %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container fade-in">
+        <div class="events-header">
+            <h2><i class="fa-solid fa-envelope"></i> Redactar correo masivo</h2>
+        </div>
+
+        <!-- Info evento -->
+        <div class="event-info card">
+            <p><i class="fa-solid fa-calendar-days"></i> <strong>Evento:</strong> {{ evento.nombre }}</p>
+            <p><i class="fa-solid fa-user-tag"></i> <strong>Rol:</strong> {{ rol }}</p>
+            <p><i class="fa-solid fa-users"></i> <strong>Usuarios seleccionados:</strong> {{ usuarios|length }}</p>
+        </div>
+
+        <!-- Formulario -->
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="asunto"><i class="fa-solid fa-heading"></i> Asunto</label>
+                <input type="text" id="asunto" name="asunto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje"><i class="fa-solid fa-align-left"></i> Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="8" required></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn primary-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar correos
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

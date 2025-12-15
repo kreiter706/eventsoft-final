@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<html>
+<head>
+    <title>No admitido como participante</title>
+    <link rel="stylesheet" href="{% static 'css/participante.css' %}">
+</head>
+<body>
+    <div class="container card">
+        <h2 class="header">No admitido como participante</h2>
+        <hr>
+        <p>Hola <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>,</p>
+        <p>Lamentamos informarte que no has sido admitido como participante en el evento <strong>{{ evento.nombre }}</strong>.</p>
+        <p>Te invitamos a estar pendiente de futuros eventos y oportunidades.</p>
+        <div style="text-align:center;margin-top:30px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/753/753345.png" alt="No admitido" width="80"/>
+        </div>
+    </div>
+</body>
+</html>
+</body>
+</html>

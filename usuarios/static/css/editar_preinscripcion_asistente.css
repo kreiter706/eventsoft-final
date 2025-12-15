@@ -1,0 +1,140 @@
+/* Estética Asistente con estilo Tomorrowland moderado */
+
+/* Fondo animado */
+body.estetica-asistente {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(270deg, #2b1a4a, #432c8e, #2b1a4a);
+    background-size: 600% 600%;
+    animation: fondoNeon 20s ease infinite;
+    color: #e4d9f7;
+    overflow-x: hidden;
+}
+
+/* Animación de fondo */
+@keyframes fondoNeon {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Contenedor central */
+.container-asistente {
+    max-width: 600px;
+    margin: 80px auto;
+    background: rgba(30, 20, 50, 0.7);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 16px rgba(150, 100, 200, 0.4);
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Títulos */
+.titulo-asistente {
+    text-align: center;
+    font-size: 2.5em;
+    color: #bfa0e6;
+    text-shadow: 0 0 4px rgba(191, 160, 230, 0.3);
+    margin-bottom: 10px;
+}
+
+.subtitulo-asistente {
+    text-align: center;
+    font-size: 1.4em;
+    color: #ddbdfc;
+    text-shadow: 0 0 4px rgba(221, 189, 252, 0.3);
+    margin-bottom: 30px;
+}
+
+/* Formulario */
+.formulario-asistente label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #f2e8ff;
+}
+
+.formulario-asistente input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #9b80d8;
+    border-radius: 12px;
+    background-color: #1e1a2f;
+    color: #ffffff;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 4px rgba(155, 128, 216, 0.3);
+}
+
+.formulario-asistente input:focus {
+    border-color: #ddbdfc;
+    box-shadow: 0 0 8px rgba(221, 189, 252, 0.4);
+}
+
+/* Botón principal */
+.btn-asistente {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #b24ccf, #f28500);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 0 0 8px rgba(178, 76, 207, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-asistente:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 14px rgba(178, 76, 207, 0.4);
+}
+
+/* Enlace volver */
+.volver-asistente {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-asistente-secundario {
+    color: #ddbdfc;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid #bfa0e6;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.btn-asistente-secundario:hover {
+    background-color: #ddbdfc;
+    color: #2b1a4a;
+    box-shadow: 0 0 10px rgba(221, 189, 252, 0.3);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+    .container-asistente {
+        margin: 40px 20px;
+        padding: 30px 20px;
+    }
+
+    .titulo-asistente {
+        font-size: 2em;
+    }
+
+    .subtitulo-asistente {
+        font-size: 1.2em;
+    }
+}

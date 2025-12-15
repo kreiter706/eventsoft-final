@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de instrumentos</title>
+  <link rel="stylesheet" href="{% static 'css/gestionar_instrumentos_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_admin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Gestionar instrumentos e ítems de mis eventos</h2>
+    </div>
+
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Evento</th>
+          <th>Instrumento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+          {% if evento.instrumentos.all %}
+            {% for instrumento in evento.instrumentos.all %}
+              <tr>
+                <td>{{ evento.nombre }}</td>
+                <td>{{ instrumento.nombre }} ({{ instrumento.get_tipo_display }})</td>
+                <td>
+                  <a href="{% url 'admin_gestionar_items_instrumento' evento.id instrumento.id %}" class="btn primary-btn">
+                    <i class="fa-solid fa-pen-to-square"></i> Gestionar ítems
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td>{{ evento.nombre }}</td>
+              <td colspan="2" class="empty-message">No hay instrumentos</td>
+            </tr>
+          {% endif %}
+
+          <tr>
+            <td colspan="2"></td>
+            <td>
+              <a href="{% url 'admin_crear_instrumento' evento.id %}" class="btn primary-btn">
+                <i class="fa-solid fa-plus"></i> Crear instrumento
+              </a>
+              <a href="{% url 'admin_tabla_posiciones' evento.id %}" class="btn secondary-btn">
+                <i class="fa-solid fa-table"></i> Tabla de posiciones
+              </a>
+              <a href="{% url 'admin_certificados_evento' evento.id %}" class="btn success-btn">
+                <i class="fa-solid fa-award"></i> Enviar certificados
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3" class="empty-message">No tienes eventos asignados.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

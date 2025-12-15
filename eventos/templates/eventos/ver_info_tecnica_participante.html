@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información técnica del evento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/ver_info_tecnica_participante.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-title">
+      <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+      <h1 class="site-title">PARTICIPANTE</h1>
+    </div>
+    <nav class="top-menu">
+      <a href="{% url 'mis_inscripciones' %}" class="menu-link profile-btn"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+      <a href="{% url 'logout' %}" class="menu-link logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Contenedor principal -->
+<div class="content-wrapper">
+  <div class="container card">
+      <h2 class="header"><i class="fa-solid fa-file-lines"></i> Información técnica del evento: {{ evento.nombre }}</h2>
+      <hr>
+
+      <ul class="document-list">
+          {% for info in info_tecnica %}
+              <li>
+                  <i class="fa-solid fa-circle-info"></i> 
+                  <strong>Descripción:</strong> {{ info.descripcion|linebreaks }}<br>
+                  {% if info.archivo %}
+                      <i class="fa-solid fa-file"></i> 
+                      <strong>Archivo:</strong> <a href="{{ info.archivo.url }}" target="_blank" class="doc-link"><i class="fa-solid fa-download"></i> Descargar</a>
+                  {% endif %}
+                  <br><em>📅 Fecha: {{ info.fecha }}</em>
+              </li>
+          {% empty %}
+              <li class="empty-message">No hay información técnica cargada para este evento.</li>
+          {% endfor %}
+      </ul>
+  </div>
+
+  <!-- Imagen decorativa -->
+  <div class="side-image">
+    <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen decorativa">
+  </div>
+</div>
+
+</body>
+</html>

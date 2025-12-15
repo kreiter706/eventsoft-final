@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preinscripción como participante</title>
+    <link rel="stylesheet" href="{% static 'css_generales/preinscripcion_participante.html.css' %}">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Barra superior premium -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Próximos</a>
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <div class="form-grid">
+            
+            <!-- Columna izquierda: formulario -->
+            <div class="form-card">
+                <h2><i class="fa-solid fa-user-plus"></i> Preinscribirme como participante a <span>{{ evento.nombre }}</span></h2>
+
+                {% if mensaje %}
+                    <div class="alert alert-info">{{ mensaje }}</div>
+                {% endif %}
+
+                {% if form %}
+                <form method="post" enctype="multipart/form-data" class="styled-form">
+                    {% csrf_token %}
+                    
+                    <label>{{ form.nombre.label }}</label>
+                    {{ form.nombre }}
+
+                    <label>{{ form.correo.label }}</label>
+                    {{ form.correo }}
+
+                    <label>{{ form.documento.label }}</label>
+                    {{ form.documento }}
+
+                    {% if evento.costo_inscripcion %}
+                        <label>{{ form.comprobante_pago.label }}</label>
+                        {{ form.comprobante_pago }}
+                    {% endif %}
+
+                    <label>{{ form.password.label }}</label>
+                    {{ form.password }}
+
+                    <button type="submit" class="btn primary-btn"><i class="fa-solid fa-paper-plane"></i> Preinscribirme</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <!-- Columna derecha: imagen -->
+            <div class="image-side">
+                <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen ilustrativa">
+            </div>
+        </div>
+    </div>
+
+    <!-- Logo marca de agua -->
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+
+</body>
+</html>

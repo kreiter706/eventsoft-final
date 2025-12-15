@@ -1,0 +1,14 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+<h1>Estadísticas del evento: {{ evento.nombre }}</h1>
+<ul>
+    <li><strong>Fechas:</strong> {{ fecha_inicio }} - {{ fecha_fin }}</li>
+    <li><strong>Lugar:</strong> {{ lugar }}</li>
+    <li><strong>Cupos:</strong> {{ cupos }}</li>
+    <li><strong>Total inscritos:</strong> {{ total_inscritos }}</li>
+    <li><strong>Participantes:</strong> {{ participantes_total }} (admitidos: {{ participantes_admitidos }})</li>
+    <li><strong>Asistentes:</strong> {{ asistentes_total }} (admitidos: {{ asistentes_admitidos }})</li>
+    <li><strong>Evaluadores:</strong> {{ evaluadores_total }} (admitidos: {{ evaluadores_admitidos }})</li>
+</ul>
+<a href="../">Volver a la lista de eventos</a>
+{% endblock %}

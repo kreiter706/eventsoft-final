@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+<head>
+    <title>Lista de usuarios</title>
+    <link rel="stylesheet" href="{% static 'css_generales/listar_usuarios.html.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de usuarios</h2>
+        <ul>
+          {% for usuario in usuarios %}
+            <li>
+              {{ usuario.username }} - {{ usuario.email }}
+              <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+              {% if request.user.is_superuser or request.user.rol == 'superadmin' %}
+                {% if usuario.event_access_code %}
+                  | <a href="{% url 'cambiar_estado_codigo_acceso' usuario.id %}">Suspender/Cancelar código</a>
+                {% endif %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

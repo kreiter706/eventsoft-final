@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluadores y Documentación</title>
+  <link rel="stylesheet" href="{% static 'css/evaluadores_documentacion_admin.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Evaluadores preinscritos y documentación</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Evento</th>
+          <th>Estado</th>
+          <th>Documentos</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in datos %}
+        <tr>
+          <td>{{ item.rel.evaluador.usuario.first_name }} {{ item.rel.evaluador.usuario.last_name }}</td>
+          <td>{{ item.rel.evaluador.usuario.email }}</td>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ item.rel.estado|capfirst }}</td>
+          <td>
+            {% for doc in item.documentos %}
+              <a href="{{ doc.archivo.url }}" target="_blank">{{ doc.descripcion }}</a><br>
+            {% empty %}
+              Sin documentos
+            {% endfor %}
+          </td>
+          <td>
+            {% if item.rel.estado == 'pendiente' %}
+              <form method="post" action="{% url 'aprobar_inscripcion_evaluador' item.rel.id 'admitido' %}" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn-accion aprobar" type="submit">Aprobar</button>
+              </form>
+              <form method="post" action="{% url 'aprobar_inscripcion_evaluador' item.rel.id 'rechazado' %}" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn-accion rechazar" type="submit">Rechazar</button>
+              </form>
+              <div class="estado-actual">Estado actual: Pendiente</div>
+            {% elif item.rel.estado == 'admitido' %}
+              <span class="badge bg-success">Aprobado</span>
+            {% elif item.rel.estado == 'rechazado' %}
+              <span class="badge bg-danger">Rechazado</span>
+            {% else %}
+              <div class="estado-actual">Estado actual: {{ item.rel.estado|capfirst }}</div>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">No hay evaluadores preinscritos.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Participantes Admitidos</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Participantes Admitidos en el Evento</h2>
+            <p class="evento-sub">Evento: <span>{{ evento.nombre }}</span></p>
+        </div>
+
+        {% if participantes %}
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            {% for instrumento in instrumentos %}
+                                <th>Calificar: {{ instrumento.nombre }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participante in participantes %}
+                            <tr>
+                                <td>{{ participante.usuario.first_name }} {{ participante.usuario.last_name }}</td>
+                                <td>{{ participante.usuario.email }}</td>
+                                {% for instrumento in instrumentos %}
+                                    <td>
+                                        <a href="{% url 'calificar_participante' evento_id instrumento.id participante.id %}" 
+                                           class="btn primary-btn">
+                                           <i class="fa-solid fa-pen-to-square"></i> Calificar
+                                        </a>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="empty-message">No hay participantes admitidos en este evento.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock %}

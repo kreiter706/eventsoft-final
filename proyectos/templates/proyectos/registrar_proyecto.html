@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Proyecto</title>
+  <link rel="stylesheet" href="{% static 'css_generales/preinscripcion_participante.html.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">EVENTSOFT</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Próximos</a>
+        <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <div class="form-grid">
+      <div class="form-card">
+        <h2><i class="fa-solid fa-users"></i> Registrar Proyecto para <span>{{ evento.nombre }}</span></h2>
+        <form method="post" enctype="multipart/form-data" class="styled-form" id="form-proyecto-grupo">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <label>{{ form.titulo.label }}</label>
+          {{ form.titulo }}
+          <label>{{ form.descripcion.label }}</label>
+          {{ form.descripcion }}
+          <label>{{ form.archivo.label }}</label>
+          {{ form.archivo }}
+          {{ form.evento }}
+          <hr>
+          <h3 style="color:#0d6efd;"><i class="fa-solid fa-user-tie"></i> Representante del proyecto</h3>
+          <div class="participante-form" style="border:2px solid #0d6efd; border-radius:10px; padding:20px 18px; margin-bottom:24px; background:#eaf1fb; box-shadow:0 2px 8px 0 #0001; max-width:100%;">
+            <div style="display:flex; flex-wrap:wrap; gap:16px;">
+              <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                <label>{{ formset.0.nombre.label }}</label>
+                {{ formset.0.nombre }}
+              </div>
+              <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                <label>{{ formset.0.correo.label }}</label>
+                {{ formset.0.correo }}
+              </div>
+              <!-- Campo de contraseña eliminado, se genera automáticamente -->
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:10px;">
+              <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                <label>{{ formset.0.documento.label }}</label>
+                {{ formset.0.documento }}
+              </div>
+              {% if evento.costo_inscripcion %}
+              <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                <label>{{ formset.0.comprobante_pago.label }}</label>
+                {{ formset.0.comprobante_pago }}
+              </div>
+              {% endif %}
+            </div>
+            <div style="margin-top:10px; color:#0d6efd; font-weight:bold;">Este usuario será el representante del proyecto.</div>
+          </div>
+          <h3><i class="fa-solid fa-users"></i> Otros participantes del proyecto</h3>
+          <div id="participantes-formset">
+            {{ formset.management_form }}
+                        {% for f in formset %}
+                        {% if not forloop.first %}
+                        <div class="participante-form" style="border:1px solid #e0e0e0; border-radius:8px; padding:18px 16px; margin-bottom:18px; background:#fafbfc; box-shadow:0 2px 8px 0 #0001; max-width:100%;">
+              <div style="display:flex; flex-wrap:wrap; gap:16px;">
+                <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                  <label>{{ f.nombre.label }}</label>
+                  {{ f.nombre }}
+                </div>
+                <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                  <label>{{ f.correo.label }}</label>
+                  {{ f.correo }}
+                </div>
+                <!-- Campo de contraseña eliminado, se genera automáticamente -->
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:10px;">
+                <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                  <label>{{ f.documento.label }}</label>
+                  {{ f.documento }}
+                </div>
+                {% if evento.costo_inscripcion %}
+                <div style="flex:1 1 220px; min-width:200px; max-width:260px;">
+                  <label>{{ f.comprobante_pago.label }}</label>
+                  {{ f.comprobante_pago }}
+                </div>
+                {% endif %}
+              </div>
+              <div style="text-align:right; margin-top:10px;">
+                <button type="button" class="btn danger-btn remove-participante" onclick="this.parentElement.parentElement.parentElement.remove()"><i class="fa-solid fa-trash"></i> Eliminar</button>
+              </div>
+            </div>
+                        {% endif %}
+                        {% endfor %}
+          </div>
+          <button type="button" class="btn secondary-btn" id="add-participante"><i class="fa-solid fa-user-plus"></i> Agregar participante</button>
+          <button type="submit" class="btn primary-btn" style="margin-top:20px;"><i class="fa-solid fa-paper-plane"></i> Registrar Proyecto</button>
+        </form>
+        <script>
+        document.getElementById('add-participante').onclick = function(e) {
+          e.preventDefault();
+          var totalForms = document.getElementById('id_form-TOTAL_FORMS');
+          var currentCount = parseInt(totalForms.value);
+          var formsetDiv = document.getElementById('participantes-formset');
+          var emptyFormHtml = `{{ formset.empty_form.as_p|escapejs }}`;
+          var newFormHtml = emptyFormHtml.replace(/__prefix__/g, currentCount);
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = newFormHtml;
+          tempDiv.className = 'participante-form';
+          // Añadir botón eliminar
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn danger-btn remove-participante';
+          btn.innerHTML = 'Eliminar';
+          btn.onclick = function(){ tempDiv.remove(); };
+          tempDiv.appendChild(btn);
+          tempDiv.innerHTML += '<hr>';
+          formsetDiv.appendChild(tempDiv);
+          totalForms.value = currentCount + 1;
+        };
+        </script>
+      </div>
+      <div class="image-side">
+        <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen ilustrativa">
+      </div>
+    </div>
+  </div>
+  <div class="logo-watermark">
+    <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+  </div>
+</body>
+</html>

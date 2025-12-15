@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información detallada del evento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Información Detallada del Evento</h2>
+        </div>
+
+        <div class="card">
+            <ul class="items-list">
+                <li><strong><i class="fa-solid fa-tag"></i> Nombre:</strong> {{ evento.nombre }}</li>
+                <li><strong><i class="fa-solid fa-align-left"></i> Descripción:</strong> {{ evento.descripcion }}</li>
+                <li><strong><i class="fa-solid fa-calendar-day"></i> Fecha de inicio:</strong> {{ evento.fecha_inicio }}</li>
+                <li><strong><i class="fa-solid fa-calendar-check"></i> Fecha de finalización:</strong> {{ evento.fecha_fin }}</li>
+                <li><strong><i class="fa-solid fa-location-dot"></i> Lugar:</strong> {{ evento.lugar }}</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

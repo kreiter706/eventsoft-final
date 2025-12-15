@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración de certificados</title>
+    <link rel="stylesheet" href="{% static 'css/configurar_certificados_evento.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_admin' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="config-box">
+            <h2>Configuración de datos para certificados</h2>
+            <p>Aquí podrás editar los datos generales y textos que aparecerán en los certificados de asistentes, participantes y evaluadores.</p>
+
+            {% if guardado %}
+                <div class="alerta-exito">
+                    <i class="fa-solid fa-check-circle"></i> ¡Configuración guardada exitosamente!
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="formulario">
+                    {{ form.as_p }}
+                </div>
+                <div class="botones">
+                    <button type="submit" class="btn primary-btn">
+                        <i class="fa-solid fa-save"></i> Guardar configuración
+                    </button>
+                    <a href="{% url 'previsualizar_certificado_evento' evento_id %}" target="_blank" class="btn secondary-btn">
+                        <i class="fa-solid fa-eye"></i> Previsualizar certificado
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

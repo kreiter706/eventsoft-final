@@ -1,0 +1,96 @@
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestionar Administradores</title>
+  <link rel="stylesheet" href="{% static 'css_generales/inicio_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'logout' %}" class="logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="welcome-card">
+      <h2>Gestión de Administradores de Evento</h2>
+      <p><i class="fa-solid fa-user-gear"></i> Panel de control de administradores de evento</p>
+    </div>
+
+    {% if request.user.is_superuser or request.user.rol == 'superadmin' %}
+    <section class="actions-grid">
+      <a href="{% url 'inicio_superadmin' %}" class="action-btn"><i class="fa-solid fa-arrow-left"></i> Volver al panel</a>
+      <a href="{% url 'crear_administrador_superadmin' %}" class="action-btn"><i class="fa-solid fa-user-plus"></i> Crear Administrador</a>
+    </section>
+
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Estado código</th>
+          <th>Expira</th>
+          <th>Máx. eventos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for admin in admins %}
+        <tr>
+          <td>{{ admin.username }}</td>
+          <td>{{ admin.email }}</td>
+          <td>
+            {% if admin.event_access_code %}
+              {{ admin.event_access_code.get_estado_display }}
+            {% else %}
+              Sin código
+            {% endif %}
+          </td>
+          <td>
+            {% if admin.event_access_code and admin.event_access_code.expires_at %}
+              {{ admin.event_access_code.expires_at|date:'d/m/Y H:i' }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>
+            {% if admin.event_access_code and admin.event_access_code.max_events %}
+              {{ admin.event_access_code.max_events }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>
+            {% if admin.event_access_code %}
+              <a class="btn btn-sm btn-primary" href="{% url 'cambiar_estado_codigo_acceso' admin.id %}"><i class="fa-solid fa-toggle-on"></i> Cambiar estado</a>
+            {% else %}
+              --
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="alert alert-danger">No tienes permisos para ver esta sección.</div>
+    {% endif %}
+  </div>
+</body>
+</html>

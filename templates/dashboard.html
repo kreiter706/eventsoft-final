@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - Eventsoft</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; }
+    .container { max-width: 680px; margin: 0 auto; }
+    .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.8rem 1.2rem; background:#0078D4; color:white; text-decoration:none; border-radius:6px; }
+    .btn.secondary { background:#6c757d }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Panel de inicio</h1>
+    <p>Accesos rápidos:</p>
+    <div class="buttons">
+      <a class="btn" href="{{ eventos_url }}">Eventos próximos</a>
+      <a class="btn secondary" href="{{ login_url }}">Iniciar sesión</a>
+    </div>
+    <hr>
+    <p>Si necesitas más accesos, dime qué botones adicionales quieres y los agrego.</p>
+  </div>
+</body>
+</html>

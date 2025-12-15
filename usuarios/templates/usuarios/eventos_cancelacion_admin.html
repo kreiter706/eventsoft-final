@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cancelar Eventos</title>
+  <link rel="stylesheet" href="{% static 'css/eventos_cancelacion_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_admin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Encabezado -->
+    <div class="events-header">
+      <h2>Cancelar eventos</h2>
+    </div>
+
+    <!-- Tabla de eventos -->
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+        <tr>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.fecha }}</td>
+          <td>{{ evento.estado }}</td>
+          <td>
+            {% if evento.estado != 'cancelado' %}
+            <form action="{% url 'cancelar_evento' evento.id %}" method="post" class="inline-form">
+              {% csrf_token %}
+              <button type="submit" class="btn danger-btn"
+                onclick="return confirm('¿Seguro que deseas cancelar este evento?');">
+                <i class="fa-solid fa-ban"></i> Cancelar
+              </button>
+            </form>
+            {% else %}
+              <span class="badge cancelled">Cancelado</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="empty-message">No hay eventos disponibles.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

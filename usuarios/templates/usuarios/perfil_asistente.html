@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Perfil - Asistente</title>
+  <link rel="stylesheet" href="{% static 'css_generales/perfil_asistente.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-title">
+      <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+      <h1 class="site-title">ASISTENTE</h1>
+    </div>
+    <nav class="top-menu">
+      <a href="{% url 'mis_inscripciones' %}" class="menu-link"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+      <a href="{% url 'logout' %}" class="menu-link logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Contenido principal -->
+<div class="container">
+
+  <h2 class="section-title"><i class="fa-solid fa-id-badge"></i> Mi Perfil</h2>
+
+  <div class="perfil-card">
+    <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <div class="acciones-perfil">
+      <a href="{% url 'editar_cuenta_asistente' %}" class="btn primary-btn"><i class="fa-solid fa-pen"></i> Editar cuenta</a>
+      <a href="{% url 'logout' %}" class="btn secondary-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </div>
+  </div>
+
+  <h3 class="section-title" style="margin-top:32px;"><i class="fa-solid fa-file-invoice-dollar"></i> Comprobantes de pago</h3>
+  <div class="comprobantes-grid">
+    {% for inscripcion in inscripciones %}
+      {% for doc in inscripcion.documentos.all %}
+        {% if "comprobante" in doc.descripcion|lower %}
+          <div class="comprobante-visual-card">
+            <img class="fondo-deco" src="{% static 'fondos/fondo_comprobante.png' %}" alt="Fondo comprobante">
+            <div>
+              <h4><i class="fa-solid fa-file-circle-check"></i> Comprobante de inscripción</h4>
+              <div class="datos">
+                <p>Has sido aceptado en el evento:<br><span style="font-weight:600;">{{ inscripcion.evento.nombre }}</span></p>
+                <p>Fecha de inicio: <span style="font-weight:600;">{{ inscripcion.evento.fecha_inicio }}</span></p>
+                <p>Fecha de finalización: <span style="font-weight:600;">{{ inscripcion.evento.fecha_fin }}</span></p>
+                <p>Lugar: <span style="font-weight:600;">{{ inscripcion.evento.lugar }}</span></p>
+                <p>Asistente: <span style="font-weight:600;">{{ user.first_name }}</span> ({{ user.email }})</p>
+              </div>
+              {% if doc.qr_url %}
+                <div class="qr-wrap">
+                  <img src="{{ doc.qr_url }}" alt="QR comprobante">
+                </div>
+              {% endif %}
+              <div class="acciones">
+                <a href="{{ doc.archivo.url }}" target="_blank" class="btn primary-btn"><i class="fa-solid fa-download"></i> Descargar comprobante</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% empty %}
+      <p style="margin-top:16px; color:#888; text-align:center;">No tienes comprobantes de pago registrados.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

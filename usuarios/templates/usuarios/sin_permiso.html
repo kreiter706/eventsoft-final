@@ -1,0 +1,14 @@
+{% load static %}
+<html>
+<head>
+    <title>Acceso denegado</title>
+    <link rel="stylesheet" href="{% static 'css_generales/sin_permiso.html.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Acceso denegado</h2>
+        <p>No tienes permisos para acceder a esta página.</p>
+        <a href="{% url 'inicio_roles' %}">Volver al inicio</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<h2>Editar preinscripción como evaluador para {{ evento.nombre }}</h2>
+{% load static %}
+<html>
+<head>
+    <title>Editar Preinscripción Evaluador</title>
+    <link rel="stylesheet" href="{% static 'css/evaluador.css' %}">
+</head>
+<body>
+    <div class="container card">
+        <h2 class="header">Editar Preinscripción Evaluador</h2>
+        <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if documento %}
+                <p>Documento actual: <a href="{{ documento.archivo.url }}" target="_blank">Ver documento</a></p>
+            {% endif %}
+            <button type="submit" class="btn">Guardar</button>
+        </form>
+    </div>
+</body>
+</html>

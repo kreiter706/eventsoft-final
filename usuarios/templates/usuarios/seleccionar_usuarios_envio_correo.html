@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar usuarios para envío de correos</title>
+    <link rel="stylesheet" href="{% static 'css/seleccionar_usuarios_envio_correo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'seleccionar_rol_envio_correo' evento.id %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Selecciona los usuarios a los que deseas enviar correos</h2>
+        </div>
+
+        <div class="event-info card">
+            <p><i class="fa-solid fa-calendar-days"></i> <strong>Evento:</strong> {{ evento.nombre }}</p>
+            <p><i class="fa-solid fa-user-tag"></i> <strong>Rol:</strong> {{ rol }}</p>
+        </div>
+
+        {% if enviados %}
+            <div style="background: #d4edda; color: #155724; padding: 12px 20px; border-radius: 6px; margin-bottom: 20px; font-weight: bold;">
+                ¡Certificados de participación enviados exitosamente!
+            </div>
+        {% endif %}
+        <form method="post" class="fade-in">
+            {% csrf_token %}
+
+            <div class="button-group">
+                <button type="button" class="btn primary-btn" onclick="seleccionarTodos()">
+                    <i class="fa-solid fa-check-double"></i> Seleccionar todos
+                </button>
+                <button type="submit" class="btn success-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Continuar
+                </button>
+                {% if rol == 'participante' %}
+                <button type="submit" name="enviar_certificados_participacion" class="btn primary-btn" style="background: #28a745; color: white; margin-left: 10px;">
+                    <i class="fa-solid fa-certificate"></i> Enviar certificado de participación
+                </button>
+                {% endif %}
+            </div>
+
+            <table class="events-table">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td><input type="checkbox" name="usuarios" value="{{ usuario.id }}" class="chk-usuario styled-checkbox"></td>
+                        <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                        <td>{{ usuario.email }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-message">No hay usuarios disponibles.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <script>
+    function seleccionarTodos() {
+        const checks = document.querySelectorAll('.chk-usuario');
+        const todosMarcados = Array.from(checks).every(chk => chk.checked);
+        checks.forEach(chk => chk.checked = !todosMarcados);
+    }
+    </script>
+</body>
+</html>

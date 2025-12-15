@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<html>
+<head>
+    <title>Comprobante de Inscripción</title>
+    <link rel="stylesheet" href="{% static 'css/participante.css' %}">
+</head>
+<body>
+    <div class="container card">
+        <h2 class="header">Comprobante de Inscripción</h2>
+        <hr>
+        <p>Hola <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>,</p>
+        <p>Te has inscrito exitosamente como participante en el evento <strong>{{ evento.nombre }}</strong>.</p>
+        <p class="success">¡Adjuntamos tu comprobante de inscripción!</p>
+        <div style="text-align:center;margin-top:30px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Comprobante" width="80"/>
+        </div>
+    </div>
+</body>
+</html>
+    <p>Tu clave de acceso al sistema es: <strong>{{ clave_acceso }}</strong></p>
+    <p>Adjunto encontrarás tu código QR para presentar en el evento.</p>
+    <p>¡Te esperamos!</p>
+</body>
+</html>

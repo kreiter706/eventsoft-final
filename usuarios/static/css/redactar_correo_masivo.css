@@ -1,0 +1,162 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.events-header h2 {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+.card {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+.card p {
+  margin: 6px 0;
+  font-weight: 500;
+}
+.card i {
+  color: #2C7A4C;
+  margin-right: 5px;
+}
+
+/* ====== Formulario ====== */
+.form-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2C7A4C;
+}
+.form-group i {
+  margin-right: 6px;
+}
+.form-group input,
+.form-group textarea {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #2C7A4C;
+  outline: none;
+  box-shadow: 0 0 5px rgba(44, 122, 76, 0.3);
+}
+
+/* ====== Botones ====== */
+.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+  transform: scale(1.03);
+}
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+/* ====== Animación ====== */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 600px) {
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.9rem;
+  }
+  .button-group {
+    justify-content: center;
+  }
+}

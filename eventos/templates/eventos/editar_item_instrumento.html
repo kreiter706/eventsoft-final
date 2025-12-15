@@ -1,0 +1,10 @@
+
+{% block content %}
+<h2>Editar ítem</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+</form>
+<a href="{% url 'gestionar_items_instrumento' evento_id instrumento_id %}">Volver a la gestión de ítems</a>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de eventos (Superadmin)</title>
+  <link rel="stylesheet" href="{% static 'css_generales/eventos_lista_superadmin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Lista de eventos (Superadmin)</h2>
+    </div>
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Fecha inicio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+        <tr>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.categoria }}</td>
+          <td>{{ evento.fecha_inicio }}</td>
+          <td>
+            {% if evento.estado == 'pendiente' %}
+              <span class="badge inactive" style="background:#ff9800;color:#fff;">Pendiente</span>
+            {% elif evento.estado == 'rechazado' %}
+              <span class="badge rejected" style="background:#f8d7da;color:#721c24;">Rechazado</span>
+            {% else %}
+              <span class="badge active">Aceptado</span>
+            {% endif %}
+          </td>
+          <td style="display:flex;gap:8px;">
+            {% if evento.estado == 'pendiente' %}
+              <form method="post" action="{% url 'aprobar_evento' evento.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn primary-btn">Aceptar</button>
+              </form>
+              <form method="post" action="{% url 'rechazar_evento' evento.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn danger-btn" style="background:#dc3545;color:white;">Rechazar</button>
+              </form>
+            {% elif evento.estado == 'rechazado' %}
+              <button class="btn" disabled style="background-color:#f8d7da; color:#721c24;">Rechazado</button>
+            {% else %}
+              <button class="btn" disabled style="background-color:#ccc; color:#555;">Aceptado</button>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="empty-message">No hay eventos disponibles.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

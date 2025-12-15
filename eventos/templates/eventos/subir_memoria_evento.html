@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir memorias</title>
+    <link rel="stylesheet" href="{% static 'css/subir_memorias_admin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="/usuarios/admin/" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Inicio administrador
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="upload-box">
+            <h2>Subir memorias del evento</h2>
+            <p class="description">
+                Adjunta archivos para que los Evaluadores puedan descargarlos.
+            </p>
+
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}
+                <label class="file-upload">
+                    <i class="fa-solid fa-file-arrow-up"></i> Seleccionar archivo
+                    <input type="file" name="archivo" required>
+                </label>
+                <button type="submit" class="btn primary-btn">
+                    <i class="fa-solid fa-upload"></i> Subir archivo
+                </button>
+            </form>
+
+            {% if mensaje %}
+                <div class="mensaje">{{ mensaje }}</div>
+            {% endif %}
+
+            <a href="{% url 'memorias_evento' %}" class="btn secondary-btn">
+                <i class="fa-solid fa-folder-open"></i> Ver y descargar memorias
+            </a>
+            <a href="/usuarios/admin/" class="btn secondary-btn" style="margin-top:15px;">
+                <i class="fa-solid fa-arrow-left"></i> Volver al panel de administración
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

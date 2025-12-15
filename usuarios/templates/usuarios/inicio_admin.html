@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administrador</title>
+  <link rel="stylesheet" href="{% static 'css_generales/inicio_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'logout' %}" class="logout-link">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Bienvenida -->
+    <div class="welcome-card">
+      <h2>Bienvenido, Administrador de Evento</h2>
+      <p><i class="fa-solid fa-user"></i> {{ user.first_name }} ({{ user.email }})</p>
+    </div>
+
+    <!-- Menú de acciones -->
+    <section class="actions-grid">
+      <a href="{% url 'eventos_cancelacion_admin' %}" class="action-btn"><i class="fa-solid fa-ban"></i> Cancelar eventos</a>
+      <a href="{% url 'lista_eventos_cambiar_participante' %}" class="action-btn"><i class="fa-solid fa-users"></i> Participantes preinscritos</a>
+      <a href="{% url 'lista_eventos_evaluadores' %}" class="action-btn"><i class="fa-solid fa-user-tie"></i> Evaluadores preinscritos</a>
+      <a href="{% url 'eventos_programacion_admin' %}" class="action-btn"><i class="fa-solid fa-calendar-days"></i> Cargar programación</a>
+      <a href="{% url 'asistentes_inscritos_todos_eventos' %}" class="action-btn"><i class="fa-solid fa-address-book"></i> Asistentes inscritos</a>
+      <a href="{% url 'lista_eventos_cambiar_estado' %}" class="action-btn"><i class="fa-solid fa-toggle-on"></i> Gestionar inscripciones</a>
+      <a href="{% url 'estadisticas_asistentes_evento' %}" class="action-btn"><i class="fa-solid fa-chart-line"></i> Estadísticas asistentes</a>
+      <a href="{% url 'eventos_gestion_instrumentos_admin' %}" class="action-btn"><i class="fa-solid fa-clipboard-list"></i> Gestionar instrumentos</a>
+      <a href="{% url 'memorias_evento' %}" class="action-btn"><i class="fa-solid fa-folder-open"></i> Gestionar memorias</a>
+      <a href="{% url 'subir_memoria_evento' %}" class="action-btn"><i class="fa-solid fa-upload"></i> Subir memorias</a>
+      <a href="{% url 'lista_eventos_configurar_certificados' %}" class="action-btn"><i class="fa-solid fa-certificate"></i> Configurar certificados</a>
+      <a href="{% url 'seleccionar_evento_envio_correo' %}" class="action-btn"><i class="fa-solid fa-envelope"></i> Enviar correos masivos</a>
+    </section>
+
+    <!-- Sección de eventos -->
+    <div class="events-header">
+      <h2>Panel de administración de eventos</h2>
+      <a class="btn primary-btn" href="{% url 'crear_evento' %}">
+        <i class="fa-solid fa-plus"></i> Crear nuevo evento
+      </a>
+    </div>
+
+      {% if mensaje_evento_creado %}
+        <div class="alert alert-success" style="margin-bottom: 20px; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 4px;">
+          {{ mensaje_evento_creado }}
+        </div>
+      {% endif %}
+
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Lugar</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+        <tr>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.fecha_inicio }}</td>
+          <td>{{ evento.fecha_fin }}</td>
+          <td>{{ evento.lugar }}</td>
+          <td>
+            <a href="{% url 'editar_evento' evento.id %}" class="edit-link"><i class="fa-solid fa-pen"></i> Editar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No hay eventos registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

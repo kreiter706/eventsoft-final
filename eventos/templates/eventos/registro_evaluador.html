@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preinscripción como Evaluador</title>
+    <link rel="stylesheet" href="{% static 'css_generales/registro_evaluador.html.css' %}">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Barra superior premium -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Próximos</a>
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <div class="form-grid">
+
+            <!-- Columna izquierda: formulario -->
+            <div class="form-card">
+                <h2><i class="fa-solid fa-user-tie"></i> Preinscripción como Evaluador para <span>{{ evento.nombre }}</span></h2>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {% if mensaje %}
+                    <div class="alert alert-info">{{ mensaje }}</div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data" class="styled-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    {% endfor %}
+                    <button type="submit" class="btn primary-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Preinscribirme
+                    </button>
+                </form>
+
+                <a href="{% url 'detalle_evento' evento.id %}" class="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver al evento
+                </a>
+            </div>
+
+            <!-- Columna derecha: imagen -->
+            <div class="image-side">
+                <img src="{% static 'fondos/imagen5.png' %}" alt="Imagen ilustrativa">
+            </div>
+        </div>
+    </div>
+
+    <!-- Logo marca de agua -->
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+
+</body>
+</html>

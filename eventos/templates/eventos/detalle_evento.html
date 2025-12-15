@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ evento.nombre }}</title>
+    <link rel="stylesheet" href="{% static 'css_generales/detalle_evento.html.css' %}">
+    <!-- Librería de iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Barra superior premium -->
+     
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'eventos_proximos' %}" class="login-link">Eventos Proximos</a>
+                <a href="{% url 'login' %}" class="login-link">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <div class="event-detail-card">
+            <div class="event-detail-grid">
+                
+                <!-- Imagen del evento -->
+                {% if evento.imagen %}
+                <div class="event-img-wrapper">
+                    <img src="{{ evento.imagen.url }}" alt="Imagen del evento">
+                </div>
+                {% endif %}
+
+                <!-- Información del evento -->
+                <div class="event-info">
+                    <h2 class="event-title">{{ evento.nombre }}</h2>
+
+                    {% if evento.categoria %}
+                        <p><i class="fa-solid fa-tags"></i> <strong>Categoría:</strong> {{ evento.categoria.nombre }}</p>
+                    {% endif %}
+
+                    <p><i class="fa-regular fa-calendar-days"></i> <strong>Fecha:</strong> {{ evento.fecha_inicio }} - {{ evento.fecha_fin }}</p>
+
+                    {% if evento.hora_inicio or evento.hora_fin %}
+                        <p><i class="fa-regular fa-clock"></i> <strong>Horario:</strong>
+                            {% if evento.hora_inicio %} {{ evento.hora_inicio|time:"H:i" }}{% endif %}
+                            {% if evento.hora_inicio and evento.hora_fin %} - {% endif %}
+                            {% if evento.hora_fin %} {{ evento.hora_fin|time:"H:i" }}{% endif %}
+                        </p>
+                    {% endif %}
+                    <p><i class="fa-solid fa-location-dot"></i> <strong>Lugar:</strong> {{ evento.lugar }}</p>
+
+                    {% if evento.ciudad %}
+                        <p><i class="fa-solid fa-city"></i> <strong>Ciudad:</strong> {{ evento.ciudad }}</p>
+                    {% endif %}
+
+                    <p><i class="fa-solid fa-align-left"></i> <strong>Descripción:</strong> {{ evento.descripcion }}</p>
+
+                    <p><i class="fa-solid fa-dollar-sign"></i> <strong>Costo de participación:</strong>
+                        {% if evento.costo_inscripcion %}
+                            ${{ evento.costo_inscripcion }}
+                        {% else %}
+                            EVENTO GRATUITO
+                        {% endif %}
+                    </p>
+
+                    <!-- Botones -->
+                    <div class="event-actions">
+                        {% if evento.inscripciones_participante %}
+                            <a class="btn primary-btn" href="{% url 'opciones_participacion' evento.id %}"><i class="fa-solid fa-user-plus"></i> Participante</a>
+                        {% endif %}
+                        {% if evento.inscripciones_evaluador %}
+                            <a class="btn secondary-btn" href="{% url 'preinscripcion_evaluador' evento.id %}"><i class="fa-solid fa-user-tie"></i> Evaluador</a>
+                        {% endif %}
+                        {% if evento.inscripciones_asistente %}
+                            <a class="btn primary-btn" href="{% url 'registrar_asistente' evento.id %}"><i class="fa-solid fa-users"></i> Asistente</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Logo marca de agua -->
+    <div class="logo-watermark">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA">
+    </div>
+
+</body>
+</html>

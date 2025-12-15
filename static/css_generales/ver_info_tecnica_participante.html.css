@@ -1,0 +1,125 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.menu-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.menu-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenido ====== */
+.content-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.container.card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  flex: 0 0 65%;
+}
+.header {
+  color: #2C7A4C;
+  margin-bottom: 10px;
+}
+
+/* ====== Lista de información técnica ====== */
+.document-list {
+  list-style: none;
+  padding: 0;
+}
+.document-list li {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #f8f9f8;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+.document-list li i {
+  color: #2C7A4C;
+  margin-right: 6px;
+}
+.doc-link {
+  color: #2C7A4C;
+  text-decoration: none;
+  font-weight: 600;
+}
+.doc-link:hover {
+  text-decoration: underline;
+}
+.empty-message {
+  color: #777;
+  font-style: italic;
+}
+
+/* ====== Imagen lateral ====== */
+.side-image {
+  flex: 0 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.side-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Ocultar imagen en pantallas pequeñas */
+@media (max-width: 992px) {
+  .side-image {
+    display: none;
+  }
+  .container.card {
+    flex: 1 1 100%;
+  }
+}

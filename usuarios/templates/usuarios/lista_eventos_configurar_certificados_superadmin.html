@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Configurar datos para certificados</title>
+    <link rel="stylesheet" href="{% static 'css/configurar_certificados_admin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor -->
+    <div class="container">
+        <div class="config-box">
+            <h2>Configurar datos para certificados</h2>
+            <p>Selecciona el evento para configurar los datos generales y textos de los certificados:</p>
+
+            <div class="table-wrapper">
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del evento</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de fin</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evento in eventos %}
+                        <tr>
+                            <td>{{ evento.nombre }}</td>
+                            <td>{{ evento.fecha_inicio }}</td>
+                            <td>{{ evento.fecha_fin }}</td>
+                            <td>
+                                <a href="{% url 'configurar_certificados_evento_superadmin' evento.id %}" class="btn primary-btn">
+                                    <i class="fa-solid fa-gear"></i> Configurar
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No hay eventos disponibles.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

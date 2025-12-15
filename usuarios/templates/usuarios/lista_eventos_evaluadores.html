@@ -1,0 +1,32 @@
+{% extends 'usuarios/inicio_admin.html' %}
+{% block content %}
+  <h2>Revisar inscripciones de evaluadores por evento</h2>
+  <table>
+    <tr>
+      <th>Nombre</th>
+      <th>Inscripciones</th>
+      <th>Acción</th>
+    </tr>
+    {% for evento in eventos %}
+    <tr>
+      <td>{{ evento.nombre }}</td>
+      <td>
+        {% if evento.inscripciones_habilitadas %}
+          Habilitadas
+        {% else %}
+          Deshabilitadas
+        {% endif %}
+      </td>
+      <td>
+        <a href="{% url 'evaluadores_preinscritos_admin' evento.id %}">
+          Revisar inscripciones de evaluadores al evento
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">No hay eventos disponibles.</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

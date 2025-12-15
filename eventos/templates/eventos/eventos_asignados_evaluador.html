@@ -1,0 +1,36 @@
+
+{% block content %}
+<h2>Eventos donde eres evaluador</h2>
+<ul>
+    {% for evento in eventos %}
+        <li>
+            <strong>{{ evento.nombre }}</strong> - {{ evento.fecha_inicio }} a {{ evento.fecha_fin }}<br>
+            <a href="#" onclick="mostrarInstrumentos('{{ evento.id }}')">Ver instrumentos</a> |
+            <a href="{% url 'ranking_evento' evento.id %}">Ver ranking de participantes</a> |
+            <a href="{% url 'comparativa_calificaciones_evento' evento.id %}">Ver comparativa de calificaciones</a>
+            <ul id="instrumentos-{{ evento.id }}" style="display:none;">
+                {% for instrumento in evento.instrumentos.all %}
+                    <li>
+                        {{ instrumento.nombre }} ({{ instrumento.get_tipo_display }})
+                        <a href="{% url 'gestionar_items_instrumento' evento.id instrumento.id %}">Gestionar ítems</a>
+                    </li>
+                {% empty %}
+                    <li>No hay instrumentos para este evento.</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>No tienes eventos asignados como evaluador.</li>
+    {% endfor %}
+</ul>
+<script>
+function mostrarInstrumentos(eventoId) {
+    var ul = document.getElementById('instrumentos-' + eventoId);
+    if (ul.style.display === 'none') {
+        ul.style.display = 'block';
+    } else {
+        ul.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

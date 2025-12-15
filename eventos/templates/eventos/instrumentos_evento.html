@@ -1,0 +1,74 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Instrumentos de Evaluación</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Instrumentos de Evaluación</h2>
+            <p class="evento-sub">Evento: <span>{{ evento.nombre }}</span></p>
+        </div>
+
+        {% if instrumentos %}
+            <div class="instrumentos-grid">
+                {% for instrumento in instrumentos %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ instrumento.nombre }}</h3>
+                            <span class="badge">{{ instrumento.get_tipo_display }}</span>
+                        </div>
+                        <p class="descripcion">{{ instrumento.descripcion }}</p>
+
+                        {% if instrumento.archivo %}
+                            <a href="{{ instrumento.archivo.url }}" target="_blank" class="btn primary-btn">
+                                <i class="fa-solid fa-download"></i> Descargar archivo
+                            </a>
+                        {% endif %}
+
+                        <h4>Ítems</h4>
+                        <ul class="items-list">
+                            {% for item in instrumento.items.all %}
+                                <li>
+                                    <strong>{{ item.nombre }}</strong>
+                                    {% if item.puntaje_maximo %} (Máx: {{ item.puntaje_maximo }}){% endif %}
+                                    <br>{{ item.descripcion }}
+                                </li>
+                            {% empty %}
+                                <li class="empty-message">No hay ítems definidos para este instrumento.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-message">No hay instrumentos de evaluación definidos para este evento.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock %}

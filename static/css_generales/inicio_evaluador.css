@@ -1,0 +1,381 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-logo {
+  width: 38px;
+  background: white;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+/* ====== Menú superior ====== */
+.top-menu {
+  display: flex;
+  gap: 10px;
+}
+
+.menu-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+.logout-btn {
+  background-color: rgba(255, 69, 58, 0.2);
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 69, 58, 0.35);
+}
+
+/* ====== Contenedor principal ====== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.flex-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.content-section {
+  flex: 2;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.side-image {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  object-fit: cover;
+}
+
+/* ====== Títulos ====== */
+.section-title,
+.events-header h2 {
+  color: #2C7A4C;
+  margin-bottom: 15px;
+}
+
+/* ====== Tarjetas de eventos ====== */
+.evento-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.evento-card h3 {
+  margin-top: 0;
+  color: #2C7A4C;
+}
+
+/* ====== Badges ====== */
+.badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge.active {
+  background-color: #2C7A4C;
+  color: white;
+}
+
+.badge.inactive {
+  background-color: #d9534f;
+  color: white;
+}
+
+.badge.warning {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* ====== Contenedor de categorías ====== */
+.acciones-evento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.categoria-card {
+  background: #fdfdfd;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.categoria-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.categoria-card h4 {
+  font-size: 1rem;
+  color: #2C7A4C;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ====== Botones ====== */
+.categoria-botones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+}
+
+.primary-btn:hover {
+  background: linear-gradient(90deg, #1E5E37, #369d52);
+}
+
+.danger-btn {
+  background: linear-gradient(90deg, #d9534f, #c9302c);
+  color: white;
+}
+
+.danger-btn:hover {
+  background: linear-gradient(90deg, #b52b27, #9a2320);
+}
+
+/* ====== Modal ====== */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.perfil-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  max-width: 400px;
+}
+
+.perfil-modal h3 {
+  margin-top: 0;
+}
+
+.cerrar {
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+  float: right;
+}
+
+/* ====== Modal ====== */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.perfil-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  max-width: 420px;
+  width: 90%;
+  animation: fadeIn 0.3s ease;
+}
+
+.perfil-modal h3 {
+  margin-top: 0;
+  color: #2C7A4C;
+  font-weight: 700;
+}
+
+.perfil-modal p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.cerrar {
+  cursor: pointer;
+  color: #d9534f;
+  font-size: 1.4rem;
+  font-weight: bold;
+  float: right;
+  transition: color 0.3s;
+}
+
+.cerrar:hover {
+  color: #b52b27;
+}
+
+/* Animación modal */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -45%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ====== Estilos específicos para los botones de la barra superior (coinciden con los botones del resto) ====== */
+.top-menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Base: comparte propiedades con .menu-link existente */
+.menu-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Botón Mi perfil — estilo primario (coincide con .primary-btn) */
+.profile-btn {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  box-shadow: 0 8px 18px rgba(44,122,76,0.18);
+}
+.profile-btn:hover,
+.profile-btn:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(44,122,76,0.22);
+  outline: none;
+}
+
+/* Botón Cerrar sesión — estilo peligro (coincide con .danger-btn) */
+.logout-btn {
+  background: linear-gradient(90deg, #d9534f, #c9302c);
+  box-shadow: 0 8px 18px rgba(217,83,79,0.18);
+}
+.logout-btn:hover,
+.logout-btn:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(217,83,79,0.22);
+  outline: none;
+}
+
+/* Iconos dentro de los botones */
+.top-menu .menu-link i {
+  font-size: 0.95rem;
+  display: inline-block;
+}
+
+/* Ajustes responsive: apilar en pantallas pequeñas para que no se pisen */
+@media (max-width: 720px) {
+  .top-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .top-menu {
+    justify-content: center;
+    gap: 8px;
+  }
+  .menu-link {
+    width: 100%;
+    justify-content: center;
+  }
+}

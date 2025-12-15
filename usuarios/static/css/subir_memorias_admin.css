@@ -1,0 +1,139 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ====== Caja de subida ====== */
+.upload-box {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  text-align: center;
+}
+.upload-box h2 {
+  color: #2C7A4C;
+  margin-bottom: 10px;
+}
+.upload-box .description {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* ====== Formulario ====== */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.file-upload {
+  display: inline-block;
+  background-color: #f4f9f6;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2C7A4C;
+  border: 2px dashed #2C7A4C;
+  transition: background 0.3s;
+}
+.file-upload:hover {
+  background-color: #eaf3ec;
+}
+.file-upload input[type="file"] {
+  display: none;
+}
+
+/* ====== Botones ====== */
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  border: none;
+  transition: background 0.3s;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}
+.secondary-btn {
+  background-color: #42C266;
+  color: white;
+}
+.secondary-btn:hover {
+  background-color: #2C7A4C;
+}
+
+/* ====== Mensaje ====== */
+.mensaje {
+  background-color: #eaf3ec;
+  color: #2C7A4C;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscripciones Asistentes</title>
+  <link rel="stylesheet" href="{% static 'css/habilitar_inscripciones.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <h2><i class="fa-solid fa-user-check"></i> Habilitar/deshabilitar inscripción de asistentes por evento</h2>
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Inscripciones</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+        <tr>
+          <td>{{ evento.nombre }}</td>
+          <td>
+            {% if evento.inscripciones_habilitadas %}
+              <span class="badge active">Habilitadas</span>
+            {% else %}
+              <span class="badge inactive">Deshabilitadas</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'asistentes_inscritos_evento_superadmin' evento.id %}" class="btn-access">
+              <i class="fa-solid fa-eye"></i> Revisar inscripciones
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

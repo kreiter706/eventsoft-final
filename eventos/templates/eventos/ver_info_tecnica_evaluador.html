@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información técnica del evento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Información Técnica del Evento</h2>
+            <p class="evento-sub">Evento: <span>{{ evento.nombre }}</span></p>
+        </div>
+
+        {% if info_tecnica %}
+            <div class="instrumentos-grid">
+                {% for info in info_tecnica %}
+                    <div class="card">
+                        <h3><i class="fa-solid fa-user-tie"></i> Evaluador</h3>
+                        <p><strong>{{ info.evaluador.usuario.get_full_name|default:info.evaluador.usuario.username }}</strong></p>
+
+                        <h4><i class="fa-solid fa-align-left"></i> Descripción</h4>
+                        <p>{{ info.descripcion|linebreaks }}</p>
+
+                        {% if info.archivo %}
+                            <a href="{{ info.archivo.url }}" target="_blank" class="btn primary-btn">
+                                <i class="fa-solid fa-download"></i> Descargar archivo
+                            </a>
+                        {% endif %}
+
+                        <p><em><i class="fa-solid fa-calendar"></i> Fecha: {{ info.fecha }}</em></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-message">No hay información técnica cargada para este evento.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

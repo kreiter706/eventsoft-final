@@ -1,0 +1,206 @@
+/* ====== Base ====== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+    background: linear-gradient(90deg, #2C7A4C, #42C266);
+    color: white;
+    padding: 12px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.top-bar-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mini-logo {
+    width: 32px;
+    height: auto;
+    border-radius: 6px;
+    background: white;
+    padding: 3px;
+}
+.site-title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+.top-menu a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.login-link {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+}
+.login-link:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor principal ====== */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* ====== Grid del formulario e imagen ====== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: 25px;
+    align-items: center;
+}
+
+/* ====== Tarjeta del formulario ====== */
+.form-card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid rgba(66,194,70,0.15);
+}
+.form-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2C7A4C;
+    margin-bottom: 20px;
+}
+.form-card span {
+    color: #1E5E37;
+}
+
+/* ====== Formulario ====== */
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.styled-form label {
+    font-weight: 500;
+    color: #2C7A4C;
+}
+.styled-form input, 
+.styled-form select, 
+.styled-form textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s;
+}
+.styled-form input:focus, 
+.styled-form select:focus, 
+.styled-form textarea:focus {
+    border-color: #2C7A4C;
+}
+
+/* ====== Botón ====== */
+.btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+.primary-btn {
+    background-color: #2C7A4C;
+    color: white;
+}
+.primary-btn:hover {
+    background-color: #1E5E37;
+}
+
+/* ====== Link volver ====== */
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #2C7A4C;
+    font-weight: 500;
+    text-decoration: none;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ====== Imagen lateral ====== */
+.image-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-side img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ====== Alertas ====== */
+.alert {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.alert-info {
+    background-color: #e0f2f1;
+    color: #00695c;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* ====== Marca de agua ====== */
+.logo-watermark {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.15;
+    width: 60px;
+    height: auto;
+}
+.logo-watermark img {
+    width: 100%;
+    height: auto;
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .image-side {
+        order: -1; /* Imagen arriba en móvil */
+    }
+}

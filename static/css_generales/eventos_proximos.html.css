@@ -1,0 +1,285 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-bar input,
+.search-bar select,
+.search-bar button {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.search-bar input, 
+.search-bar select {
+    flex: 1;
+}
+
+.search-bar button {
+    background-color: #007B5E;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #005f46;
+}
+
+/* Título */
+.header {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* Grid de eventos */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* Tarjeta de evento */
+.event-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Imagen del evento */
+.event-img-wrapper {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.event-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px;
+}
+
+/* Cuerpo de la tarjeta */
+.event-body {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-body p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Limitar descripción */
+.event-body p:first-child {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Máximo 3 líneas */
+    -webkit-box-orient: vertical;
+}
+
+/* Enlaces del evento */
+.event-links {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.event-links a {
+    color: #007B5E;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.event-links a:hover {
+    text-decoration: underline;
+}
+
+/* Logo como marca de agua */
+.logo-sena {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.2;
+    width: 60px;
+    height: auto;
+    z-index: 10;
+}
+/* ===== BARRA SUPERIOR PREMIUM ===== */
+.top-bar {
+    background: linear-gradient(90deg, #2C7A4C, #42C266);
+    color: white;
+    padding: 12px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-bar-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mini-logo {
+    width: 32px;
+    height: auto;
+    border-radius: 6px;
+    background: white;
+    padding: 3px;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.top-menu a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Botones del menú */
+.login-link {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+}
+.login-link:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+.register-link {
+    background-color: #1E5E37;
+    color: white;
+}
+.register-link:hover {
+    background-color: #164628;
+}
+
+/* ===== TARJETAS PREMIUM ===== */
+.event-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(66,194,70,0.15);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-color: rgba(66,194,70,0.4);
+}
+
+/* Imagen con zoom suave */
+.event-img-wrapper {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.event-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.event-card:hover .event-img-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Título sobre imagen */
+.event-title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 10px;
+}
+
+/* ===== LOGO MARCA DE AGUA ===== */
+.logo-watermark {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.15;
+    width: 60px;
+    height: auto;
+    z-index: 10;
+}
+
+.logo-watermark img {
+    width: 100%;
+    height: auto;
+}

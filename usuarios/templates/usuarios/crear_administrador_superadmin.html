@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Administrador de Evento</title>
+  <link rel="stylesheet" href="{% static 'css_generales/crear_admin_evento.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Crear Administrador de Evento</h2>
+    </div>
+    {% if creado %}
+      <div class="form-group" style="background:#e6ffe6;padding:20px;border-radius:8px;margin-bottom:20px;">
+        <h3>Administrador creado exitosamente</h3>
+      </div>
+    {% endif %}
+    <form method="post" class="styled-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <!-- La clave de acceso se generará automáticamente -->
+      <div class="form-group">
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado">
+          <option value="pendiente">Pendiente</option>
+          <option value="admitido">Admitido</option>
+          <option value="rechazado">Rechazado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="max_events">Cantidad máxima de eventos:</label>
+        <input type="number" id="max_events" name="max_events" min="1" placeholder="Sin límite">
+      </div>
+      <div class="form-group">
+        <label for="expires_at">Fecha/hora límite:</label>
+        <input type="datetime-local" id="expires_at" name="expires_at" placeholder="Sin límite">
+      </div>
+      <button type="submit" class="btn primary-btn">Crear Administrador</button>
+    </form>
+  </div>
+</body>
+</html>

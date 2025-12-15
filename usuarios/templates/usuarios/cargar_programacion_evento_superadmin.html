@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cargar Programación</title>
+  <link rel="stylesheet" href="{% static 'css/cargar_programacion_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'eventos_programacion_superadmin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Diseño con imagen en ambos lados -->
+  <div class="page-layout">
+    <!-- Imagen izquierda -->
+    <div class="image-side">
+      <img src="{% static 'fondos/imagen8.jpg' %}" alt="Imagen decorativa" class="side-image">
+    </div>
+
+    <!-- Contenido principal centrado -->
+    <div class="container">
+      <div class="form-header">
+        <h2><i class="fa-solid fa-calendar-plus"></i> Cargar programación para el evento</h2>
+        <p class="event-name">{{ evento.nombre }}</p>
+      </div>
+
+      <form method="post" class="styled-form">
+        {% csrf_token %}
+        <div class="form-fields">
+          {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn primary-btn">
+          <i class="fa-solid fa-save"></i> Guardar programación
+        </button>
+      </form>
+    </div>
+
+    <!-- Imagen derecha -->
+    <div class="image-side">
+      <img src="{% static 'fondos/imagen8.jpg' %}" alt="Imagen decorativa" class="side-image">
+    </div>
+  </div>
+
+</body>
+</html>

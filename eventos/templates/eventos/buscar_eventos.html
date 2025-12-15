@@ -1,0 +1,13 @@
+<h2>Buscar eventos</h2>
+<form method="get">
+    <input type="text" name="q" placeholder="Buscar por nombre..." value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
+
+<ul>
+  {% for evento in eventos %}
+    <li><strong>{{ evento.nombre }}</strong> - {{ evento.fecha_inicio }}</li>
+  {% empty %}
+    <li>No se encontraron eventos.</li>
+  {% endfor %}
+</ul>

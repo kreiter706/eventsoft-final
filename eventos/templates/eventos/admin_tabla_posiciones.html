@@ -1,0 +1,79 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabla de Posiciones</title>
+  <link rel="stylesheet" href="{% static 'css/tabla_posiciones_admin.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="top-bar-container">
+      <div class="logo-title">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+        <h1 class="site-title">ADMINISTRADOR</h1>
+      </div>
+      <nav class="top-menu">
+        <a href="{% url 'eventos_gestion_instrumentos_admin' %}" class="logout-link">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="events-header">
+      <h2>Tabla de posiciones - {{ evento.nombre }}</h2>
+    </div>
+
+    <div class="acciones-superiores">
+      <a href="?descargar=csv" class="btn-card">
+        <i class="fa-solid fa-table"></i>
+        <span>Descargar CSV</span>
+      </a>
+    </div>
+
+
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Puntaje total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in ranking %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.participante.usuario.first_name }} {{ item.participante.usuario.last_name }}</td>
+          <td>{{ item.participante.usuario.email }}</td>
+          <td>{{ item.puntaje_total }}</td>
+          <td>
+            <a href="{% url 'admin_detalle_calificaciones_participante' evento.id item.participante.id %}" class="btn primary-btn">
+              <i class="fa-solid fa-eye"></i> Ver detalle
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="empty-message">
+            No hay participantes admitidos o calificados en este evento.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
+{% endblock %}

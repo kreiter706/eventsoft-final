@@ -1,0 +1,120 @@
+/* ====== Base ====== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f9f6, #eaf3ec);
+  color: #333;
+}
+
+/* ====== Barra superior ====== */
+.top-bar {
+  background: linear-gradient(90deg, #2C7A4C, #42C266);
+  color: white;
+  padding: 12px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.top-bar-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mini-logo {
+  width: 32px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+.site-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.logout-link {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.logout-link:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ====== Contenedor ====== */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* ====== Encabezado ====== */
+.events-header h2 {
+  color: #2C7A4C;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ====== Formulario ====== */
+.styled-form {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+label {
+  font-weight: 600;
+  color: #2C7A4C;
+}
+input, select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+input:focus, select:focus {
+  border-color: #2C7A4C;
+  outline: none;
+  box-shadow: 0 0 4px rgba(44,122,76,0.4);
+}
+
+/* ====== Botón ====== */
+.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+.primary-btn {
+  background-color: #2C7A4C;
+  color: white;
+}
+.primary-btn:hover {
+  background-color: #1E5E37;
+}

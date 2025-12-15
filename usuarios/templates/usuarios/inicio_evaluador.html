@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Evaluador</title>
+    <link rel="stylesheet" href="{% static 'css_generales/inicio_evaluador.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <!-- Botón Mi perfil (modal) -->
+                <button class="menu-link profile-btn" id="mostrarPerfil" aria-haspopup="dialog" aria-controls="perfilModal">
+                    <i class="fa-solid fa-user"></i> Mi perfil
+                </button>
+
+                <!-- Cerrar sesión -->
+                <a href="{% url 'logout' %}" class="menu-link logout-btn" role="button">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="container flex-layout">
+        <!-- Sección izquierda -->
+        <div class="content-section">
+            <h2 class="section-title">
+                Bienvenido, {{ usuario.get_full_name|default:usuario.username }} (Evaluador)
+            </h2>
+
+            <div class="events-header">
+                <h2>Mis eventos asignados</h2>
+            </div>
+
+            <div class="eventos-lista">
+                {% if evaluador_eventos %}
+                    {% for ev in evaluador_eventos %}
+                        <div class="evento-card">
+                            <h3>{{ ev.evento.nombre }}</h3>
+                            <p><strong>Fecha:</strong> {{ ev.evento.fecha_inicio }} a {{ ev.evento.fecha_fin }}</p>
+                            <p><strong>Estado:</strong>
+                                {% if ev.estado == 'admitido' %}
+                                    <span class="badge active">¡Has sido admitido como evaluador!</span>
+
+                                    <div class="acciones-evento">
+                                        <!-- Instrumentos -->
+                                        <div class="categoria-card">
+                                            <h4><i class="fa-solid fa-clipboard-list"></i> Instrumentos</h4>
+                                            <div class="categoria-botones">
+                                                <a href="{% url 'instrumentos_evento' ev.evento.id %}" class="btn primary-btn">Ver instrumento</a>
+                                                {% if ev.evento.instrumentos.first %}
+                                                    <a href="{% url 'calificar_participantes_evento' ev.evento.id %}" class="btn primary-btn">Calificar</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- Participación -->
+                                        <div class="categoria-card">
+                                            <h4><i class="fa-solid fa-users"></i> Participación</h4>
+                                            <div class="categoria-botones">
+                                                <a href="{% url 'comparativa_calificaciones_evento' ev.evento.id %}" class="btn primary-btn">Calificaciones</a>
+                                                <a href="{% url 'ranking_evento' ev.evento.id %}" class="btn primary-btn">Ranking</a>
+                                                <a href="{% url 'lista_participantes_evaluador' ev.evento.id %}" class="btn primary-btn">Participantes</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Documentos -->
+                                        <div class="categoria-card">
+                                            <h4><i class="fa-solid fa-file-pdf"></i> Documentos</h4>
+                                            <div class="categoria-botones">
+                                                <a href="{% url 'descargar_comprobante_evaluador' ev.evento.id %}" class="btn primary-btn" target="_blank">QR</a>
+                                                <a href="{% url 'descargar_programacion_evento' ev.evento.id %}" class="btn primary-btn" target="_blank">Programación</a>
+                                                <a href="{% url 'memorias_evento' %}" class="btn primary-btn">Memorias</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Administración -->
+                                        <div class="categoria-card">
+                                            <h4><i class="fa-solid fa-gear"></i> Administración</h4>
+                                            <div class="categoria-botones">
+                                                <a href="{% url 'detalle_evento_evaluador' ev.evento.id %}" class="btn primary-btn">Info Basica</a>
+                                                <a href="{% url 'ver_info_tecnica_evaluador' ev.evento.id %}" class="btn primary-btn">Info Tecnica</a>
+                                                <a href="{% url 'editar_info_evaluador' ev.evento.id %}" class="btn primary-btn">Editar Perfil</a>
+                                                <a href="/media/manuales/Manual_Evaluador_EVENTSOFT.pdf" class="btn primary-btn" style="display:inline-block; width:100%; box-sizing:border-box;" download><i class="fa-solid fa-book-open"></i> Manual de usuario</a>
+                                                <a href="{% url 'cancelar_preinscripcion_evaluador' ev.evento.id %}" class="btn danger-btn">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% elif ev.estado == 'rechazado' %}
+                                    <span class="badge inactive">No has sido admitido como evaluador.</span>
+                                {% else %}
+                                    <span class="badge warning">Pendiente de revisión</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty-message">No tienes eventos asignados actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Sección derecha -->
+        <div class="image-section">
+            <img src="{% static 'fondos/imagen3.jpg' %}" alt="Decoración" class="side-image">
+        </div>
+    </div>
+
+    <!-- Modal perfil -->
+    <div class="overlay" id="overlay"></div>
+    <div class="perfil-modal" id="perfilModal" role="dialog" aria-modal="true" aria-labelledby="perfilTitle">
+        <span class="cerrar" id="cerrarPerfil" aria-hidden="true">&times;</span>
+        <h3 id="perfilTitle">Información del Evaluador</h3>
+        <p><strong>Nombre:</strong> {{ usuario.get_full_name|default:usuario.username }}</p>
+        <p><strong>Correo:</strong> {{ usuario.email }}</p>
+    </div>
+
+    <script>
+        const mostrarPerfil = document.getElementById('mostrarPerfil');
+        const cerrarPerfil = document.getElementById('cerrarPerfil');
+        const perfilModal = document.getElementById('perfilModal');
+        const overlay = document.getElementById('overlay');
+
+        mostrarPerfil.addEventListener('click', () => {
+            perfilModal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        cerrarPerfil.addEventListener('click', () => {
+            perfilModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        overlay.addEventListener('click', () => {
+            perfilModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                perfilModal.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+
+{% block content %}
+<h2>Eliminar ítem</h2>
+<p>¿Estás seguro de que deseas eliminar el ítem <strong>{{ item.nombre }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'gestionar_items_instrumento_superadmin' evento_id instrumento_id %}">Cancelar</a>
+</form>
+{% endblock %}

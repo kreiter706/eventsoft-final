@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Participante</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'lista_participantes_evaluador' evento_id %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Detalle del Participante</h2>
+            <p class="evento-sub">Evento ID: <span>{{ evento_id }}</span></p>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-user"></i> Información Personal</h3>
+            <ul class="items-list">
+                <li><strong>Nombre:</strong> {{ participante.usuario.get_full_name|default:participante.usuario.username }}</li>
+                <li><strong>Email:</strong> {{ participante.usuario.email }}</li>
+                <li><strong>Estado de inscripción:</strong> {{ inscripcion.estado|capfirst }}</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><i class="fa-solid fa-folder-open"></i> Documentación Aportada</h3>
+            {% if documentos %}
+                <ul class="items-list">
+                    {% for doc in documentos %}
+                        <li>
+                            <strong>{{ doc.tipo_documento }}</strong>:
+                            <a href="{{ doc.archivo.url }}" target="_blank" class="btn primary-btn">
+                                <i class="fa-solid fa-download"></i> Descargar
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-message">No hay documentación aportada.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

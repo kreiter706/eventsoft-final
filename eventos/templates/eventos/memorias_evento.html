@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Memorias del Evento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/memorias_evento.html.css' %}"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVENTSOFT</h1>
+            </div>
+            <nav class="top-menu">
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="events-header">
+            <h2>Memorias del Evento</h2>
+            <p class="description">
+                Descarga las presentaciones, documentos y otros archivos relacionados al evento.
+            </p>
+        </div>
+
+        <div style="display: flex; align-items: flex-start;">
+            <form id="form-eliminar-memorias" method="post" action="{% url 'eliminar_memorias' %}" style="flex: 1;">
+                {% csrf_token %}
+                <ul class="file-list">
+                    {% for archivo in archivos %}
+                        <li style="display: flex; align-items: center;">
+                            <input type="checkbox" name="archivos" value="{{ archivo }}" class="checkbox-memoria" style="display: none; margin-right: 10px;">
+                            <a href="{% url 'descargar_memoria' archivo %}" class="btn primary-btn">
+                                <i class="fa-solid fa-download"></i> {{ archivo }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="empty-message">No hay archivos disponibles.</li>
+                    {% endfor %}
+                </ul>
+            </form>
+            <button id="btn-eliminar-memorias" type="submit" form="form-eliminar-memorias" style="display: none; margin-left: 20px; background: none; border: none; cursor: pointer; font-size: 2rem; color: #d9534f;">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+        <button id="activar-seleccion" type="button" class="btn secondary-btn" style="margin-top: 20px;">
+            <i class="fa-solid fa-trash"></i> Eliminar memorias
+        </button>
+        <script>
+        // Mostrar checkboxes y botón de eliminar al activar selección
+        document.getElementById('activar-seleccion').addEventListener('click', function() {
+            document.querySelectorAll('.checkbox-memoria').forEach(cb => cb.style.display = 'inline-block');
+            document.getElementById('btn-eliminar-memorias').style.display = 'inline-block';
+            document.getElementById('btn-eliminar-memorias').disabled = true;
+            this.style.display = 'none';
+        });
+
+        // Habilitar/deshabilitar el botón de eliminar según selección
+        function actualizarBotonEliminar() {
+            const algunoMarcado = Array.from(document.querySelectorAll('.checkbox-memoria')).some(c => c.checked);
+            document.getElementById('btn-eliminar-memorias').disabled = !algunoMarcado;
+        }
+        document.querySelectorAll('.checkbox-memoria').forEach(cb => {
+            cb.addEventListener('change', actualizarBotonEliminar);
+        });
+        </script>
+    </div>
+
+</body>
+</html>

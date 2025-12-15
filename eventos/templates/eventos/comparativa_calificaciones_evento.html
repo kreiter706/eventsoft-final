@@ -1,0 +1,81 @@
+{% load static %}
+{% load dict_extras %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparativa de Calificaciones</title>
+    <link rel="stylesheet" href="{% static 'css_generales/instrumentos_evento.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">EVALUADOR</h1>
+            </div>
+            <nav class="top-menu">
+                <a href="{% url 'inicio_evaluador' %}" class="logout-link">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="events-header">
+            <h2>Comparativa de Calificaciones</h2>
+            <p class="evento-sub">Evento: <span>{{ evento.nombre }}</span></p>
+        </div>
+
+        {% if instrumentos %}
+            {% for instrumento in instrumentos %}
+                <div class="instrumento-section">
+                    <h3>{{ instrumento.nombre }} <span class="badge">{{ instrumento.get_tipo_display }}</span></h3>
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Participante</th>
+                                    {% for item in instrumento.items.all %}
+                                        {% for evaluador in evaluadores %}
+                                            <th>{{ item.nombre }}<br><small>{{ evaluador.usuario.first_name }}</small></th>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for participante in participantes %}
+                                    <tr>
+                                        <td>{{ participante.usuario.first_name }} {{ participante.usuario.last_name }}</td>
+                                        {% for item in instrumento.items.all %}
+                                            {% for evaluador in evaluadores %}
+                                                <td>
+                                                    {% with puntaje=comparativa.participante.instrumento.item.evaluador %}
+                                                        {{ comparativa|dict_get:participante|dict_get:instrumento|dict_get:item|dict_get:evaluador|default:'-' }}
+                                                    {% endwith %}
+                                                </td>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        {% else %}
+            <p class="empty-message">No hay instrumentos disponibles para este evento.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock %}

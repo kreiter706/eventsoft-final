@@ -1,0 +1,120 @@
+/* Fondo animado estilo Tomorrowland */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(270deg, #0f0c29, #302b63, #8a2387);
+  background-size: 600% 600%;
+  animation: gradientBG 20s ease infinite;
+  color: #f2f2f2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h2, h3 {
+  color: #ff66ff;
+  text-shadow: 0 0 8px #ff66ff;
+  margin-top: 40px;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+ul li {
+  background-color: rgba(255, 255, 255, 0.08);
+  margin: 12px 0;
+  padding: 15px 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+ul li:hover {
+  transform: scale(1.02);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+a {
+  color: #00ffee;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-right: 6px;
+}
+
+a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 6px #00ffee;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #ff00cc;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #d100a9;
+  transform: scale(1.05);
+}
+
+.logout-link {
+  color: #ff4444;
+}
+
+.logout-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 5px #ff4444;
+}
+
+details {
+  margin-top: 10px;
+  color: #e0e0e0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #00ffc8;
+  text-shadow: 0 0 5px #00ffc8;
+}
+
+details[open] summary {
+  color: #ffffff;
+}
+
+strong {
+  color: #ffd700;
+  text-shadow: 0 0 5px #ffd700;
+}

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Iniciar sesión - EventSoft</title>
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="{% static 'css_generales/login.html.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <!-- IZQUIERDA: imagen + texto -->
+    <aside class="login-left">
+      <div class="overlay-text animate-fade">
+        <h1>Bienvenido a <span>EventSoft</span></h1>
+        <p class="subtle">
+          Administra, organiza y participa en eventos de forma rápida y sencilla.  
+          Conéctate con las mejores oportunidades y lleva tu experiencia a otro nivel.
+        </p>
+      </div>
+    </aside>
+
+    <!-- DERECHA: formulario -->
+    <main class="login-right animate-slide">
+      <section class="form-box">
+        <img src="{% static 'fondos/logosena.png' %}" alt="Logo" class="logo" />
+        <h2>Iniciar Sesión</h2>
+
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="error-message" style="color: #c00; margin-bottom: 10px;">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        {% if form.errors or form.non_field_errors %}
+          <div class="error-message" style="color: #c00; margin-bottom: 10px;">
+            {% for field in form %}
+              {% for error in field.errors %}
+                {{ error }}<br>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              {{ error }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <div class="input-group">
+            <i class="fa fa-user icon"></i>
+            <input type="text" name="username" placeholder="Usuario" required autocomplete="username">
+          </div>
+
+          <div class="input-group">
+            <i class="fa fa-lock icon"></i>
+            <input type="password" name="password" placeholder="Contraseña" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fa fa-sign-in-alt"></i> Entrar
+          </button>
+        </form>
+
+        <div class="extras">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+          <span class="sep"> | </span>
+          <a href="#">Crear una cuenta</a>
+        </div>
+
+        <div class="form-footer">© 2025 EventSoft</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Ítems del Instrumento</title>
+    <link rel="stylesheet" href="{% static 'css_generales/gestionar_items_instrumento.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <header class="top-bar">
+        <div class="top-bar-container">
+            <div class="logo-title">
+                <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+                <h1 class="site-title">SUPER-ADMINISTRADOR</h1>
+            </div>
+            <nav class="top-menu">
+                {% if admin_mode %}
+                    <a href="{% url 'inicio_superadmin' %}" class="logout-link">
+                        <i class="fa-solid fa-arrow-left"></i> Volver
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+<div class="container">
+    <h2>Gestionar ítems del instrumento: <span>{{ instrumento.nombre }}</span> ({{ instrumento.get_tipo_display }})</h2>
+
+    <div class="contenido-flex">
+        
+        <!-- Formulario a la izquierda -->
+        <section class="agregar-item">
+            <h3>Agregar nuevo ítem</h3>
+            <form method="post" class="formulario">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if form.non_field_errors %}
+                    <ul class="errorlist">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <button type="submit" class="btn agregar">Agregar ítem</button>
+            </form>
+        </section>
+
+        <!-- Lista a la derecha -->
+        <section class="items-existentes">
+            <h3>Ítems existentes</h3>
+            <ul>
+                {% for item in items %}
+                    <li class="item-card">
+                        <div class="item-info">
+                            <strong>{{ item.nombre }}</strong> 
+                            <span class="max">(Máx: {{ item.puntaje_maximo }}, Peso: {{ item.peso_porcentaje }}%)</span>
+                            <p>{{ item.descripcion }}</p>
+                        </div>
+                        <div class="acciones">
+                            {% if admin_mode %}
+                                <a href="{% url 'gestionar_items_instrumento_superadmin' evento_id instrumento.id %}?edit={{ item.id }}" class="btn">Editar</a>
+                                <a href="{% url 'gestionar_items_instrumento_superadmin' evento_id instrumento.id %}?delete={{ item.id }}" class="btn rojo">Eliminar</a>
+                            {% else %}
+                                <a href="{% url 'editar_item_instrumento_superadmin' evento_id instrumento.id item.id %}" class="btn">Editar</a>
+                                <a href="{% url 'eliminar_item_instrumento_superadmin' evento_id instrumento.id item.id %}" class="btn rojo">Eliminar</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="item-card">No hay ítems definidos para este instrumento.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+    </div>
+</div>
+
+</body>
+</html>

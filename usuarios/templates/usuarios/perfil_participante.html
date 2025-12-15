@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Participante</title>
+    <link rel="stylesheet" href="{% static 'css_generales/perfil_participante.html.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="top-bar">
+  <div class="top-bar-container">
+    <div class="logo-title">
+      <img src="{% static 'fondos/logosena.png' %}" alt="Logo SENA" class="mini-logo">
+      <h1 class="site-title">PARTICIPANTE</h1>
+    </div>
+    <nav class="top-menu">
+      <a href="{% url 'mis_inscripciones' %}" class="menu-link profile-btn"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+      <a href="{% url 'logout' %}" class="menu-link logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Contenedor principal -->
+<div class="content-wrapper">
+  <div class="container card">
+      <h2 class="header"><i class="fa-solid fa-id-card"></i> Perfil de Participante</h2>
+      <hr>
+      <p><strong>Nombre:</strong> {{ usuario.first_name }} {{ usuario.last_name }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+      <p><strong>Rol:</strong> {{ usuario.rol }}</p>
+
+      <h3><i class="fa-solid fa-folder-open"></i> Documentos aportados</h3>
+      <ul class="document-list">
+        {% for doc in documentos %}
+          <li>
+            <i class="fa-solid fa-file"></i> {{ doc.descripcion }} –
+            <a href="{{ doc.archivo.url }}" target="_blank" class="doc-link"><i class="fa-solid fa-eye"></i> Ver documento</a>
+          </li>
+        {% empty %}
+          <li class="empty-message">No has aportado documentos.</li>
+        {% endfor %}
+      </ul>
+  </div>
+
+  <!-- Imagen decorativa -->
+  <div class="side-image">
+    <img src="{% static 'fondos/imagen6.png' %}" alt="Imagen decorativa">
+  </div>
+</div>
+
+</body>
+</html>
