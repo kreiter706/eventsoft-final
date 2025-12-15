@@ -166,3 +166,4 @@ STATICFILES_DIRS = [
     BASE_DIR / 'eventsoft/static',
     BASE_DIR / 'eventsoft/static/css_generales',
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
