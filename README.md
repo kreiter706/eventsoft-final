@@ -180,27 +180,86 @@ Buenas prácticas:
 - En producción no almacenar archivos media en el disco del servidor (Render borra volúmenes efímeros). Usar Cloudinary o similar.
 - Configurar en Render las variables `CLOUDINARY_*` con valores de la cuenta Cloudinary.
 
-## Despliegue en Render
+## espliegue en PythonAnywhere
 
-Este proyecto incluye un `render.yaml` y `Procfile` con las instrucciones recomendadas para desplegar en Render.
+Este proyecto está desplegado en PythonAnywhere, una plataforma de alojamiento especializada en aplicaciones Python y Django. A diferencia de Render, PythonAnywhere no utiliza archivos como render.yaml ni Procfile; toda la configuración se realiza desde su panel web y mediante la consola Bash.
 
-Pasos generales para desplegar en Render:
+## Pasos generales para desplegar en PythonAnywhere:
+- Crear una cuenta en PythonAnywhere y acceder al panel principal.
+- Clonar el repositorio del proyecto desde GitHub usando la consola Bash de PythonAnywhere:
+- git clone <url-del-repositorio>
+  cd eventsoft-final
 
-1. Crear un nuevo Web Service en Render y conectar el repositorio.
-2. En la configuración del servicio (Environment), agregar las variables de entorno necesarias: al menos `SECRET_KEY`, `DEBUG=False`, `CLOUDINARY_*`, `DATABASE_URL` (si usa Postgres) y las credenciales de correo si se requiere envío de correos.
-3. El `render.yaml` y/o `Procfile` define los comandos de build y start. Ejemplos encontrados en este repositorio:
 
-   - `buildCommand`: instala dependencias, aplica migraciones y ejecuta `collectstatic`.
-   - `startCommand`: `gunicorn wsgi:application --bind 0.0.0.0:$PORT --timeout 120`.
+## Para actualizar el proyecto a la última versión del repositorio:
+- git pull origin main
 
-4. Render puede ejecutar un `release` command (en `Procfile`) que corre migraciones y `collectstatic` antes de iniciar el servicio.
+## Crear y activar un entorno virtual para el proyecto:
 
-5. Verificar logs (Render Dashboard) ante errores de migración o de conectividad con Cloudinary.
+python3.13 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
-Notas específicas encontradas en el repo:
 
-- `Procfile` contiene una línea `release: python manage.py migrate --noinput && python manage.py collectstatic --noinput` y un `web:` con `gunicorn`.
-- `render.yaml` incluye ejemplos de `buildCommand` y `startCommand`, y muestra variables de ejemplo (`PYTHON_VERSION`, `ENVIRONMENT`). También aparece una sección de `databases` con un nombre `adso-db` (esto sugiere que la configuración prevista es Postgres gestionado por Render, pero la conexión final depende de la variable `DATABASE_URL` o credenciales proporcionadas en el servicio).
+## Configurar la aplicación web desde la pestaña Web en PythonAnywhere:
+- rear una nueva Web App.
+- Seleccionar Manual configuration.
+- Elegir la versión de Python correspondiente.
+- Configuración recomendada:
+
+Source code:
+/home/yeison/eventsoft-final
+
+Working directory:
+/home/yeison/eventsoft-final
+
+Virtualenv:
+/home/yeison/eventsoft-final/venv
+
+## Configurar el archivo WSGI desde Web → WSGI configuration file:
+
+import os
+import sys
+
+path = '/home/yeison/eventsoft-final'
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eventsoft.settings')
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+Configurar las variables de entorno desde Web → Environment variables:
+
+SECRET_KEY
+
+DEBUG=False
+
+CLOUDINARY_CLOUD_NAME
+
+CLOUDINARY_API_KEY
+
+CLOUDINARY_API_SECRET
+
+Variables de correo (SMTP / Brevo)
+
+Ejecutar migraciones y recolectar archivos estáticos desde la consola Bash:
+
+python manage.py migrate
+python manage.py collectstatic
+
+## Configurar archivos estáticos en la pestaña Web → Static files:
+- URL: /static/
+- Directory: /home/yeison/eventsoft-final/staticfiles
+- Recargar la aplicación desde la pestaña Web usando el botón Reload.
+
+## Notas específicas para este proyecto:
+- No se utilizan archivos render.yaml ni Procfile.
+- PythonAnywhere gestiona el servidor WSGI automáticamente.
+- Los errores de despliegue y ejecución se revisan desde Web → Error log.
+- Para archivos media, el proyecto utiliza Cloudinary, evitando depender del sistema de archivos local.
+- Es obligatorio definir correctamente ALLOWED_HOSTS en settings.py, incluyendo el dominio asignado por PythonAnywhere (por ejemplo: yeison.pythonanywhere.com).
 
 ## Pruebas y validación
 
