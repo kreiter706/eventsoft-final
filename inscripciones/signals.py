@@ -35,6 +35,12 @@ def crear_objeto_rol_al_admitir(sender, instance, created, **kwargs):
 @receiver(post_save, sender=InscripcionEvento)
 def enviar_comprobante_asistente(sender, instance, created, **kwargs):
     if created and instance.usuario.rol == 'asistente':
+        # Generar clave si no existe
+        if not instance.clave_acceso:
+            import secrets
+            clave = secrets.token_urlsafe(8)
+            instance.clave_acceso = clave
+            instance.save()
         # Generar datos para el QR
         qr_data = f"InscripcionID:{instance.id}|Usuario:{instance.usuario.email}|Evento:{instance.evento.nombre}"
         qr = qrcode.make(qr_data)
@@ -66,6 +72,12 @@ def notificar_participante_admision(sender, instance, created, **kwargs):
     usuario = instance.usuario
     if usuario.rol == 'participante':
         if instance.estado == 'admitido':
+            # Generar clave si no existe
+            if not instance.clave_acceso:
+                import secrets
+                clave = secrets.token_urlsafe(8)
+                instance.clave_acceso = clave
+                instance.save()
             # Generar QR
             qr_data = f"InscripcionID:{instance.id}|Usuario:{usuario.email}|Evento:{instance.evento.nombre}"
             qr = qrcode.make(qr_data)
@@ -109,6 +121,12 @@ def notificar_evaluador_admision(sender, instance, created, **kwargs):
     usuario = instance.usuario
     if usuario.rol == 'evaluador':
         if instance.estado == 'admitido':
+            # Generar clave si no existe
+            if not instance.clave_acceso:
+                import secrets
+                clave = secrets.token_urlsafe(8)
+                instance.clave_acceso = clave
+                instance.save()
             html_content = render_to_string('emails/admision_evaluador.html', {
                 'usuario': usuario,
                 'evento': instance.evento,
