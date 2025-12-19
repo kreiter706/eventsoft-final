@@ -1277,6 +1277,10 @@ def cambiar_estado_asistente_evento(request, inscripcion_id, nuevo_estado):
         messages.error(request, "No tienes permisos para esta acción.")
         return redirect('inicio_admin')
     inscripcion = get_object_or_404(InscripcionEvento, id=inscripcion_id)
+    if nuevo_estado == 'admitido':
+        import secrets
+        clave_generada = secrets.token_urlsafe(8)
+        inscripcion.clave_acceso = clave_generada
     inscripcion.estado = nuevo_estado
     inscripcion.save()
     return redirect('asistentes_inscritos_evento', evento_id=inscripcion.evento.id)
@@ -1437,16 +1441,25 @@ def aprobar_inscripcion_evaluador(request, evaluador_evento_id, nuevo_estado):
     # Generar clave dinámica si es admitido
     clave_generada = None
     if request.method == 'POST':
-        evaluador_evento.estado = nuevo_estado
-        evaluador_evento.save()
         if nuevo_estado == 'admitido':
             import random
             import string
             clave_generada = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+            # Guardar la clave en InscripcionEvento
+            try:
+                from inscripciones.models import InscripcionEvento
+                inscripcion = InscripcionEvento.objects.filter(usuario=usuario, evento=evaluador_evento.evento).first()
+                if inscripcion:
+                    inscripcion.clave_acceso = clave_generada
+                    inscripcion.save()
+            except Exception:
+                pass
             # Solo permitir set_password si no es admin_evento
             if not hasattr(usuario, 'admin_evento'):
                 usuario.set_password(clave_generada)
             usuario.save()
+        evaluador_evento.estado = nuevo_estado
+        evaluador_evento.save()
         # Enviar correo
         from django.core.mail import send_mail
         asunto = f"Resultado de preinscripción como evaluador en el evento {evaluador_evento.evento.nombre}"
