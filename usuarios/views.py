@@ -1179,13 +1179,14 @@ def aprobar_inscripcion_participante(request, inscripcion_id, nuevo_estado):
         messages.error(request, "No tienes permisos para esta acción.")
         return redirect('/usuarios/login/')
     inscripcion = get_object_or_404(InscripcionEvento, id=inscripcion_id, usuario__rol='participante')
-    inscripcion.estado = nuevo_estado
     clave_generada = None
     if nuevo_estado == 'admitido':
         import random
         import string
         clave_generada = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
         usuario = inscripcion.usuario
+        # Guardar la clave en inscripcion antes de cambiar el estado y guardar
+        inscripcion.clave_acceso = clave_generada
         # Solo permitir set_password si no es admin_evento
         if not hasattr(usuario, 'admin_evento'):
             usuario.set_password(clave_generada)
@@ -1197,6 +1198,7 @@ def aprobar_inscripcion_participante(request, inscripcion_id, nuevo_estado):
                 participante.save()
             except Exception:
                 pass
+    inscripcion.estado = nuevo_estado
     inscripcion.save()
     evento = inscripcion.evento
     if nuevo_estado == 'admitido' and clave_generada:
