@@ -475,6 +475,9 @@ def editar_preinscripcion_participante(request, evento_id, usuario_id):
             # Generar siempre una nueva clave de acceso
             import secrets
             clave_generada = secrets.token_urlsafe(8)
+            # Guardar la clave en InscripcionEvento
+            inscripcion.clave_acceso = clave_generada
+            inscripcion.save()
             # Solo permitir set_password si no es admin_evento
             if not hasattr(usuario, 'admin_evento'):
                 usuario.set_password(clave_generada)
