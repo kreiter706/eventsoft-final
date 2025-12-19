@@ -12,17 +12,16 @@ from django.template.loader import render_to_string
 def participante_admitido_signal(sender, instance, created, **kwargs):
     # Solo si el estado es admitido
     if instance.estado == 'admitido':
-        clave = instance.clave_temporal
-        # No generar clave, solo usar la que ya está en el modelo
-        if clave:
-            try:
-                from inscripciones.models import InscripcionEvento
-                from proyectos.utils import enviar_correo_admision_participante
-                inscripcion = InscripcionEvento.objects.filter(usuario=instance.usuario, usuario__rol='participante').order_by('-id').first()
-                evento = inscripcion.evento if inscripcion else None
+        try:
+            from inscripciones.models import InscripcionEvento
+            from proyectos.utils import enviar_correo_admision_participante
+            inscripcion = InscripcionEvento.objects.filter(usuario=instance.usuario, usuario__rol='participante').order_by('-id').first()
+            evento = inscripcion.evento if inscripcion else None
+            clave = inscripcion.clave_acceso if inscripcion else None
+            if clave:
                 enviar_correo_admision_participante(instance, evento, clave=clave)
-            except Exception as e:
-                print(f"Error enviando correo de admisión (señal): {e}")
+        except Exception as e:
+            print(f"Error enviando correo de admisión (señal): {e}")
 
 @receiver(post_save, sender=Asistente)
 def asistente_admitido_signal(sender, instance, created, **kwargs):
